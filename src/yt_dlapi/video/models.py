@@ -49,12 +49,12 @@ class Format(BaseModel):
     available_at: int | None = None
     downloader_options: DownloaderOptions | None = None
     container: str | None = None
+    format_index: None = None
+    manifest_url: str | None = None
     protocol: str | None = None
     rows: int | None = None
     columns: int | None = None
     fragments: list[Fragment] | None = None
-    format_index: None = None
-    manifest_url: str | None = None
 
 
 class Thumbnail(BaseModel):
@@ -408,6 +408,17 @@ class DzItem(BaseModel):
     field__yt_dlp_client: str = Field(..., alias="__yt_dlp_client")
 
 
+class EnOrigItem(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    ext: str
+    url: str
+    name: str
+    impersonate: bool
+    field__yt_dlp_client: str = Field(..., alias="__yt_dlp_client")
+
+
 class EnItem(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -730,17 +741,6 @@ class GaItem(BaseModel):
 
 
 class ItItem(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    ext: str
-    url: str
-    name: str
-    impersonate: bool
-    field__yt_dlp_client: str = Field(..., alias="__yt_dlp_client")
-
-
-class JaOrigItem(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
@@ -1796,6 +1796,17 @@ class ZuItem(BaseModel):
     field__yt_dlp_client: str = Field(..., alias="__yt_dlp_client")
 
 
+class JaOrigItem(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    ext: str
+    url: str
+    name: str
+    impersonate: bool
+    field__yt_dlp_client: str = Field(..., alias="__yt_dlp_client")
+
+
 class AutomaticCaptions(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -1831,7 +1842,8 @@ class AutomaticCaptions(BaseModel):
     dv: list[DvItem] | None = None
     nl: list[NlItem] | None = None
     dz: list[DzItem] | None = None
-    en: list[EnItem]
+    en_orig: list[EnOrigItem] | None = Field(None, alias="en-orig")
+    en: list[EnItem] | None = None
     eo: list[EoItem] | None = None
     et: list[EtItem] | None = None
     ee: list[EeItem] | None = None
@@ -1844,7 +1856,7 @@ class AutomaticCaptions(BaseModel):
     gl: list[GlItem] | None = None
     lg: list[LgItem] | None = None
     ka: list[KaItem] | None = None
-    de: list[DeItem]
+    de: list[DeItem] | None = None
     el: list[ElItem] | None = None
     gn: list[GnItem] | None = None
     gu: list[GuItem] | None = None
@@ -1861,7 +1873,6 @@ class AutomaticCaptions(BaseModel):
     iu: list[IuItem] | None = None
     ga: list[GaItem] | None = None
     it: list[ItItem] | None = None
-    ja_orig: list[JaOrigItem] | None = Field(None, alias="ja-orig")
     ja: list[JaItem] | None = None
     jv: list[JvItem] | None = None
     kl: list[KlItem] | None = None
@@ -1957,6 +1968,7 @@ class AutomaticCaptions(BaseModel):
     yi: list[YiItem] | None = None
     yo: list[YoItem] | None = None
     zu: list[ZuItem] | None = None
+    ja_orig: list[JaOrigItem] | None = Field(None, alias="ja-orig")
 
 
 class EnItem1(BaseModel):

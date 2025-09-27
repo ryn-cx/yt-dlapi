@@ -1,0 +1,54 @@
+{
+  "id": "UU4QobU6STFB0P71PMvOGN5A",
+  "title": "Uploads from jawed",
+  "availability": "public",
+  "channel_follower_count": null,
+  "description": "",
+  "tags": [],
+  "thumbnails": [
+    {
+      "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwEwCKgBEF5IWvKriqkDIwgBFQAAiEIYAfABAfgBvgKAAvABigIMCAAQARhVIFkoZTAP&rs=AOn4CLDrlUsFyWeYqxx-GVhoVmyrdLX1Mw",
+      "height": 94,
+      "width": 168
+    },
+    {
+      "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwEwCMQBEG5IWvKriqkDIwgBFQAAiEIYAfABAfgBvgKAAvABigIMCAAQARhVIFkoZTAP&rs=AOn4CLDw3_tnaIJlqTOXjPNNa0GCPb-hkw",
+      "height": 110,
+      "width": 196
+    },
+    {
+      "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwExCPYBEIoBSFryq4qpAyMIARUAAIhCGAHwAQH4Ab4CgALwAYoCDAgAEAEYVSBZKGUwDw==&rs=AOn4CLBjDqag9EZyWMs56tG_EynO13cihQ",
+      "height": 138,
+      "width": 246
+    },
+    {
+      "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwExCNACELwBSFryq4qpAyMIARUAAIhCGAHwAQH4Ab4CgALwAYoCDAgAEAEYVSBZKGUwDw==&rs=AOn4CLBup3YZ8rAcAVSV0yok3hVVe4lErA",
+      "height": 188,
+      "width": 336
+    }
+  ],
+  "modified_date": "20240717",
+  "view_count": 497723,
+  "playlist_count": 1,
+  "channel": "jawed",
+  "channel_id": "UC4QobU6STFB0P71PMvOGN5A",
+  "uploader_id": "@jawed",
+  "uploader": "jawed",
+  "channel_url": "https://www.youtube.com/channel/UC4QobU6STFB0P71PMvOGN5A",
+  "uploader_url": "https://www.youtube.com/@jawed",
+  "_type": "playlist",
+  "entries": "<generator object YoutubeTabBaseInfoExtractor._entries at 0x0000019B43644D60>",
+  "extractor_key": "YoutubeTab",
+  "extractor": "youtube:tab",
+  "webpage_url": "https://www.youtube.com/playlist?list=UU4QobU6STFB0P71PMvOGN5A",
+  "original_url": "https://www.youtube.com/playlist?list=UU4QobU6STFB0P71PMvOGN5A",
+  "webpage_url_basename": "playlist",
+  "webpage_url_domain": "youtube.com",
+  "epoch": 1758980722,
+  "_version": {
+    "version": "2025.09.26",
+    "current_git_head": null,
+    "release_git_head": "12b57d2858845c0c7fb33bf9aa8ed7be6905535d",
+    "repository": "yt-dlp/yt-dlp"
+  }
+}

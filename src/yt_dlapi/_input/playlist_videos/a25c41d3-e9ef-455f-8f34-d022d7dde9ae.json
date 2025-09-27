@@ -1,0 +1,279 @@
+{
+  "id": "PLF067D2CE7087548E",
+  "title": "Pet Videos",
+  "availability": null,
+  "channel_follower_count": null,
+  "description": "videos of pets",
+  "tags": [],
+  "thumbnails": [
+    {
+      "url": "https://i.ytimg.com/vi/7bcV-TL9mho/hqdefault.jpg?sqp=-oaymwEwCKgBEF5IWvKriqkDIwgBFQAAiEIYAfABAfgBvgKAAvABigIMCAAQARh_IEIoGjAP&rs=AOn4CLBqfn2uVw7qgWQAjePz8fcKiK8COg",
+      "height": 94,
+      "width": 168,
+      "id": "0",
+      "resolution": "168x94"
+    },
+    {
+      "url": "https://i.ytimg.com/vi/7bcV-TL9mho/hqdefault.jpg?sqp=-oaymwEwCMQBEG5IWvKriqkDIwgBFQAAiEIYAfABAfgBvgKAAvABigIMCAAQARh_IEIoGjAP&rs=AOn4CLB4YvhzuJaelWoO7TgHj4TldlsSKA",
+      "height": 110,
+      "width": 196,
+      "id": "1",
+      "resolution": "196x110"
+    },
+    {
+      "url": "https://i.ytimg.com/vi/7bcV-TL9mho/hqdefault.jpg?sqp=-oaymwExCPYBEIoBSFryq4qpAyMIARUAAIhCGAHwAQH4Ab4CgALwAYoCDAgAEAEYfyBCKBowDw==&rs=AOn4CLCfuV-HFDefxNwDNJ6n02IpLlMDmQ",
+      "height": 138,
+      "width": 246,
+      "id": "2",
+      "resolution": "246x138"
+    },
+    {
+      "url": "https://i.ytimg.com/vi/7bcV-TL9mho/hqdefault.jpg?sqp=-oaymwExCNACELwBSFryq4qpAyMIARUAAIhCGAHwAQH4Ab4CgALwAYoCDAgAEAEYfyBCKBowDw==&rs=AOn4CLBJv1ANspCdO15ldYCaCqoJmGA3rg",
+      "height": 188,
+      "width": 336,
+      "id": "3",
+      "resolution": "336x188"
+    }
+  ],
+  "modified_date": "20091228",
+  "view_count": 5318,
+  "playlist_count": 5,
+  "channel": "steve",
+  "channel_id": "UCeAS7YuMOKpz39PD07O2p_w",
+  "uploader_id": "@steve",
+  "uploader": "steve",
+  "channel_url": "https://www.youtube.com/channel/UCeAS7YuMOKpz39PD07O2p_w",
+  "uploader_url": "https://www.youtube.com/@steve",
+  "_type": "playlist",
+  "entries": [
+    {
+      "_type": "url",
+      "ie_key": "Youtube",
+      "id": "7bcV-TL9mho",
+      "url": "https://www.youtube.com/watch?v=7bcV-TL9mho",
+      "title": "Puppy vs. Cat",
+      "description": null,
+      "duration": 70,
+      "channel_id": "UCMLO_h-5vTuEM53z0OzGM4g",
+      "channel": "Sanchey",
+      "channel_url": "https://www.youtube.com/channel/UCMLO_h-5vTuEM53z0OzGM4g",
+      "uploader": "Sanchey",
+      "uploader_id": "@Sanchey",
+      "uploader_url": "https://www.youtube.com/@Sanchey",
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/7bcV-TL9mho/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGH8gQigaMA8=&rs=AOn4CLCS2eILlB_VxBEDLl5E8qpzN5XPWg",
+          "height": 94,
+          "width": 168
+        },
+        {
+          "url": "https://i.ytimg.com/vi/7bcV-TL9mho/hqdefault.jpg?sqp=-oaymwE1CMQBEG5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGH8gQigaMA8=&rs=AOn4CLB32r0WkypolubOtXN9MSG4Kwiy3g",
+          "height": 110,
+          "width": 196
+        },
+        {
+          "url": "https://i.ytimg.com/vi/7bcV-TL9mho/hqdefault.jpg?sqp=-oaymwE2CPYBEIoBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARh_IEIoGjAP&rs=AOn4CLCXF61tiN1ov77zatmh-czlyBUs1A",
+          "height": 138,
+          "width": 246
+        },
+        {
+          "url": "https://i.ytimg.com/vi/7bcV-TL9mho/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARh_IEIoGjAP&rs=AOn4CLD-6AUYoRTAEwz8Jj_e61GrfLSvuQ",
+          "height": 188,
+          "width": 336
+        }
+      ],
+      "timestamp": null,
+      "release_timestamp": null,
+      "availability": null,
+      "view_count": 16000000,
+      "live_status": null,
+      "channel_is_verified": null,
+      "__x_forwarded_for_ip": null
+    },
+    {
+      "_type": "url",
+      "ie_key": "Youtube",
+      "id": "cdXTDovB9K8",
+      "url": "https://www.youtube.com/watch?v=cdXTDovB9K8",
+      "title": "[Deleted video]",
+      "description": null,
+      "duration": null,
+      "channel_id": null,
+      "channel": null,
+      "channel_url": null,
+      "uploader": null,
+      "uploader_id": null,
+      "uploader_url": null,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/img/no_thumbnail.jpg",
+          "height": 90,
+          "width": 120
+        },
+        {
+          "url": "https://i.ytimg.com/img/no_thumbnail.jpg",
+          "height": 180,
+          "width": 320
+        },
+        {
+          "url": "https://i.ytimg.com/img/no_thumbnail.jpg",
+          "height": 360,
+          "width": 480
+        }
+      ],
+      "timestamp": null,
+      "release_timestamp": null,
+      "availability": null,
+      "view_count": null,
+      "live_status": null,
+      "channel_is_verified": null,
+      "__x_forwarded_for_ip": null
+    },
+    {
+      "_type": "url",
+      "ie_key": "Youtube",
+      "id": "a54HH3oAMNQ",
+      "url": "https://www.youtube.com/watch?v=a54HH3oAMNQ",
+      "title": "The wanking bulldog",
+      "description": null,
+      "duration": 57,
+      "channel_id": "UC29c4ap9ZDNXWryZtMGZhXA",
+      "channel": "hisdud3n3ss",
+      "channel_url": "https://www.youtube.com/channel/UC29c4ap9ZDNXWryZtMGZhXA",
+      "uploader": "hisdud3n3ss",
+      "uploader_id": "@hisdud3n3ss",
+      "uploader_url": "https://www.youtube.com/@hisdud3n3ss",
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/a54HH3oAMNQ/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AHQAYACkAGKAgwIABABGFIgWyhlMA8=&rs=AOn4CLDLrOz2rAn9vm035FGnKorw4iAYuA",
+          "height": 94,
+          "width": 168
+        },
+        {
+          "url": "https://i.ytimg.com/vi/a54HH3oAMNQ/hqdefault.jpg?sqp=-oaymwE1CMQBEG5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AHQAYACkAGKAgwIABABGFIgWyhlMA8=&rs=AOn4CLA4VYXqy5apU_PLIt3rVxIn3Fj34w",
+          "height": 110,
+          "width": 196
+        },
+        {
+          "url": "https://i.ytimg.com/vi/a54HH3oAMNQ/hqdefault.jpg?sqp=-oaymwE2CPYBEIoBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB0AGAApABigIMCAAQARhSIFsoZTAP&rs=AOn4CLCOgStK_1qgRrrxnM_44aQwU9UywA",
+          "height": 138,
+          "width": 246
+        },
+        {
+          "url": "https://i.ytimg.com/vi/a54HH3oAMNQ/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB0AGAApABigIMCAAQARhSIFsoZTAP&rs=AOn4CLAK4pDdWFj-28Spoqd-p7thadD2wA",
+          "height": 188,
+          "width": 336
+        }
+      ],
+      "timestamp": null,
+      "release_timestamp": null,
+      "availability": null,
+      "view_count": 16000,
+      "live_status": null,
+      "channel_is_verified": null,
+      "__x_forwarded_for_ip": null
+    },
+    {
+      "_type": "url",
+      "ie_key": "Youtube",
+      "id": "WofFb_eOxxA",
+      "url": "https://www.youtube.com/watch?v=WofFb_eOxxA",
+      "title": "Gizmo Flushes",
+      "description": null,
+      "duration": 170,
+      "channel_id": "UCAk_TQU5tEBBqzE5IUZt5MQ",
+      "channel": "Nick Sayer",
+      "channel_url": "https://www.youtube.com/channel/UCAk_TQU5tEBBqzE5IUZt5MQ",
+      "uploader": "Nick Sayer",
+      "uploader_id": "@nsayer",
+      "uploader_url": "https://www.youtube.com/@nsayer",
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/WofFb_eOxxA/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGHIgUSgsMA8=&rs=AOn4CLAkiQTid5a12HlFT1QRnTYaECtxjQ",
+          "height": 94,
+          "width": 168
+        },
+        {
+          "url": "https://i.ytimg.com/vi/WofFb_eOxxA/hqdefault.jpg?sqp=-oaymwE1CMQBEG5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGHIgUSgsMA8=&rs=AOn4CLCgG2hRTF6E6EDvbPzsb4P3yp0H-g",
+          "height": 110,
+          "width": 196
+        },
+        {
+          "url": "https://i.ytimg.com/vi/WofFb_eOxxA/hqdefault.jpg?sqp=-oaymwE2CPYBEIoBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARhyIFEoLDAP&rs=AOn4CLBG5R8gWJZ7VpmwW-b0rivhWfqqpw",
+          "height": 138,
+          "width": 246
+        },
+        {
+          "url": "https://i.ytimg.com/vi/WofFb_eOxxA/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARhyIFEoLDAP&rs=AOn4CLBAWjGWPvcvj27dA1AVn9OugEnIWw",
+          "height": 188,
+          "width": 336
+        }
+      ],
+      "timestamp": null,
+      "release_timestamp": null,
+      "availability": null,
+      "view_count": 6200000,
+      "live_status": null,
+      "channel_is_verified": null,
+      "__x_forwarded_for_ip": null
+    },
+    {
+      "_type": "url",
+      "ie_key": "Youtube",
+      "id": "WofFb_eOxxA",
+      "url": "https://www.youtube.com/watch?v=WofFb_eOxxA",
+      "title": "Gizmo Flushes",
+      "description": null,
+      "duration": 170,
+      "channel_id": "UCAk_TQU5tEBBqzE5IUZt5MQ",
+      "channel": "Nick Sayer",
+      "channel_url": "https://www.youtube.com/channel/UCAk_TQU5tEBBqzE5IUZt5MQ",
+      "uploader": "Nick Sayer",
+      "uploader_id": "@nsayer",
+      "uploader_url": "https://www.youtube.com/@nsayer",
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/WofFb_eOxxA/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGHIgUSgsMA8=&rs=AOn4CLAkiQTid5a12HlFT1QRnTYaECtxjQ",
+          "height": 94,
+          "width": 168
+        },
+        {
+          "url": "https://i.ytimg.com/vi/WofFb_eOxxA/hqdefault.jpg?sqp=-oaymwE1CMQBEG5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGHIgUSgsMA8=&rs=AOn4CLCgG2hRTF6E6EDvbPzsb4P3yp0H-g",
+          "height": 110,
+          "width": 196
+        },
+        {
+          "url": "https://i.ytimg.com/vi/WofFb_eOxxA/hqdefault.jpg?sqp=-oaymwE2CPYBEIoBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARhyIFEoLDAP&rs=AOn4CLBG5R8gWJZ7VpmwW-b0rivhWfqqpw",
+          "height": 138,
+          "width": 246
+        },
+        {
+          "url": "https://i.ytimg.com/vi/WofFb_eOxxA/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARhyIFEoLDAP&rs=AOn4CLBAWjGWPvcvj27dA1AVn9OugEnIWw",
+          "height": 188,
+          "width": 336
+        }
+      ],
+      "timestamp": null,
+      "release_timestamp": null,
+      "availability": null,
+      "view_count": 6200000,
+      "live_status": null,
+      "channel_is_verified": null,
+      "__x_forwarded_for_ip": null
+    }
+  ],
+  "extractor_key": "YoutubeTab",
+  "extractor": "youtube:tab",
+  "webpage_url": "https://www.youtube.com/playlist?list=PLF067D2CE7087548E",
+  "original_url": "https://www.youtube.com/playlist?list=PLF067D2CE7087548E",
+  "webpage_url_basename": "playlist",
+  "webpage_url_domain": "youtube.com",
+  "release_year": null,
+  "epoch": 1758981090,
+  "_version": {
+    "version": "2025.09.26",
+    "current_git_head": null,
+    "release_git_head": "12b57d2858845c0c7fb33bf9aa8ed7be6905535d",
+    "repository": "yt-dlp/yt-dlp"
+  }
+}

@@ -31,7 +31,7 @@ class Model(BaseModel):
     )
     id: str
     title: str
-    availability: None
+    availability: str | None = None
     channel_follower_count: None
     description: str
     tags: list
