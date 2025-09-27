@@ -14,7 +14,7 @@ class Thumbnail(BaseModel):
     height: int | None = None
     width: int | None = None
     preference: int | None = None
-    id: str
+    id: str | None = None
     resolution: str | None = None
 
 
@@ -81,17 +81,17 @@ class Model(BaseModel):
     uploader_url: str
     modified_date: None
     view_count: None
-    playlist_count: int
+    playlist_count: int | None = None
     uploader: str
     channel_url: str
     field_type: str = Field(..., alias="_type")
-    entries: list[Entry]
+    entries: str | list[Entry]
     extractor_key: str
     extractor: str
     webpage_url: str
     original_url: str
     webpage_url_basename: str
     webpage_url_domain: str
-    release_year: None
+    release_year: None = None
     epoch: int
     field_version: FieldVersion = Field(..., alias="_version")

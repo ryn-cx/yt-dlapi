@@ -11,8 +11,34 @@ class Thumbnail(BaseModel):
         extra="forbid",
     )
     url: str
+    height: int | None = None
+    width: int | None = None
+    preference: int | None = None
+    id: str
+    resolution: str | None = None
+
+
+class Thumbnail1(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    url: str
     height: int
     width: int
+
+
+class Entry(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    title: str
+    thumbnails: list[Thumbnail1]
+    duration: None
+    ie_key: str
+    id: str
+    field_type: str = Field(..., alias="_type")
+    url: str
+    field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
 
 
 class FieldVersion(BaseModel):
@@ -30,28 +56,29 @@ class Model(BaseModel):
         extra="forbid",
     )
     id: str
-    title: str
-    availability: None
-    channel_follower_count: None
-    description: str
-    tags: list
-    thumbnails: list[Thumbnail]
-    modified_date: str
-    view_count: int
-    playlist_count: int
     channel: str
     channel_id: str
+    title: str
+    availability: None
+    channel_follower_count: int
+    description: str
+    tags: list[str]
+    thumbnails: list[Thumbnail]
     uploader_id: str
+    uploader_url: str
+    modified_date: None
+    view_count: None
+    playlist_count: int
     uploader: str
     channel_url: str
-    uploader_url: str
     field_type: str = Field(..., alias="_type")
-    entries: str
+    entries: list[Entry]
     extractor_key: str
     extractor: str
     webpage_url: str
     original_url: str
     webpage_url_basename: str
     webpage_url_domain: str
+    release_year: None
     epoch: int
     field_version: FieldVersion = Field(..., alias="_version")

@@ -8,7 +8,8 @@ class YTDLAPIProtocol(Protocol):
         self,
         url: str,
         *,
-        process: bool = True,
+        process: bool = False,
+        extract_flat: bool = True,
     ) -> dict[str, Any]: ...
 
     def parse_response[T: BaseModel](
