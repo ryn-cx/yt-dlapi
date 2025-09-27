@@ -36,18 +36,18 @@ class Entry(BaseModel):
     url: str
     title: str
     description: None
-    duration: int
-    channel_id: str
-    channel: str
-    channel_url: str
-    uploader: str
-    uploader_id: str
-    uploader_url: str
+    duration: int | None = None
+    channel_id: str | None = None
+    channel: str | None = None
+    channel_url: str | None = None
+    uploader: str | None = None
+    uploader_id: str | None = None
+    uploader_url: str | None = None
     thumbnails: list[Thumbnail1]
     timestamp: None
     release_timestamp: None
     availability: None
-    view_count: int
+    view_count: int | None = None
     live_status: None
     channel_is_verified: None
     field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
