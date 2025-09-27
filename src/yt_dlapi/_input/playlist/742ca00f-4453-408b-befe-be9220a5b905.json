@@ -1,0 +1,54 @@
+{
+  "id": "PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh",
+  "title": "YouTube",
+  "availability": null,
+  "channel_follower_count": null,
+  "description": "",
+  "tags": [],
+  "thumbnails": [
+    {
+      "url": "https://i.ytimg.com/vi/lVI_J1cbFb4/hqdefault.jpg?sqp=-oaymwEWCKgBEF5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLDSFko5GVHTf22FMkOm4uTb-Pf9Dg",
+      "height": 94,
+      "width": 168
+    },
+    {
+      "url": "https://i.ytimg.com/vi/lVI_J1cbFb4/hqdefault.jpg?sqp=-oaymwEWCMQBEG5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLA8f0t8tVMqcdG1QYuh-sQ9Uc53jg",
+      "height": 110,
+      "width": 196
+    },
+    {
+      "url": "https://i.ytimg.com/vi/lVI_J1cbFb4/hqdefault.jpg?sqp=-oaymwEXCPYBEIoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBWhQYFRuvG9dqKU87pDh_sIjnRUw",
+      "height": 138,
+      "width": 246
+    },
+    {
+      "url": "https://i.ytimg.com/vi/lVI_J1cbFb4/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLC4pN2ks4OQluY83-zIqMilztBF5A",
+      "height": 188,
+      "width": 336
+    }
+  ],
+  "modified_date": "20250123",
+  "view_count": 7844062,
+  "playlist_count": 4,
+  "channel": "jawed",
+  "channel_id": "UC4QobU6STFB0P71PMvOGN5A",
+  "uploader_id": "@jawed",
+  "uploader": "jawed",
+  "channel_url": "https://www.youtube.com/channel/UC4QobU6STFB0P71PMvOGN5A",
+  "uploader_url": "https://www.youtube.com/@jawed",
+  "_type": "playlist",
+  "entries": "<generator object YoutubeTabBaseInfoExtractor._entries at 0x00000243AE8976A0>",
+  "extractor_key": "YoutubeTab",
+  "extractor": "youtube:tab",
+  "webpage_url": "https://www.youtube.com/playlist?list=PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh",
+  "original_url": "https://www.youtube.com/playlist?list=PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh",
+  "webpage_url_basename": "playlist",
+  "webpage_url_domain": "youtube.com",
+  "epoch": 1758977914,
+  "_version": {
+    "version": "2025.09.26",
+    "current_git_head": null,
+    "release_git_head": "12b57d2858845c0c7fb33bf9aa8ed7be6905535d",
+    "repository": "yt-dlp/yt-dlp"
+  }
+}

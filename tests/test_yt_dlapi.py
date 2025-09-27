@@ -36,10 +36,23 @@ class TestParsing:
             file_content = json.loads(json_file.read_text())
             client.parse_video(file_content)
 
+    def test_parse_channel_playlists(self) -> None:
+        for json_file in self.get_test_files("channel_playlists"):
+            file_content = json.loads(json_file.read_text())
+            client.parse_channel_playlists(file_content)
+
+    def test_parse_playlist_videos(self) -> None:
+        for json_file in self.get_test_files("playlist_videos"):
+            file_content = json.loads(json_file.read_text())
+            client.parse_playlist_videos(file_content)
+
 
 class TestGet:
-    def test_get_channel(self) -> None:
-        client.get_channel("jawed")
+    def test_get_channel_using_channel_name(self) -> None:
+        client.get_channel(channel_name="jawed")
+
+    def test_get_channel_using_channel_id(self) -> None:
+        client.get_channel(channel_id="UC4QobU6STFB0P71PMvOGN5A")
 
     def test_get_playlist(self) -> None:
         client.get_playlist("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
@@ -49,3 +62,17 @@ class TestGet:
 
     def test_get_age_restricted_video(self) -> None:
         client.get_video("l1ITP7m6R0Q")
+
+    def test_channel_playlists_using_channel_name(self) -> None:
+        client.get_channel_playlists(channel_name="jawed")
+
+    def test_channel_playlists_using_channel_id(self) -> None:
+        client.get_channel_playlists(channel_id="UC4QobU6STFB0P71PMvOGN5A")
+
+    def test_get_playlist_videos_using_playlist_id(self) -> None:
+        client.get_playlist_videos("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
+
+    def test_get_playlist_videos_using_channel_id(self) -> None:
+        # Not really the channel id because it was modified to be a playlist id from the
+        # channel id.
+        client.get_playlist_videos("UU4QobU6STFB0P71PMvOGN5A")

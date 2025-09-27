@@ -5,30 +5,39 @@ from typing import Any
 from pydantic import BaseModel, ValidationError
 from yt_dlp import YoutubeDL
 
-from yt_dlapi.channel import Channel
-from yt_dlapi.playlist import Playlist
-from yt_dlapi.update_files import Updater
-from yt_dlapi.video import Video
+from .channel import Channel
+from .channel_playlists import ChannelUploads
+from .playlist import Playlist
+from .playlist_videos import PlaylistVideos
+from .update_files import Updater
+from .video import Video
 
 logger = logging.getLogger(__name__)
 
 
-class YTDLAPI(Channel, Playlist, Video):
+class YTDLAPI(Channel, Playlist, Video, ChannelUploads, PlaylistVideos):
     def __init__(self, cookie_file: Path | None = None) -> None:
         self.cookie_file = cookie_file
 
-    def yt_dlp_request(self, url: str, *, process: bool = True) -> dict[str, Any]:
+    def yt_dlp_request(
+        self,
+        url: str,
+        *,
+        process: bool = False,
+        extract_flat: bool = True,
+    ) -> dict[str, Any]:
         logger.info("Downloading %s", url)
 
-        # This makes it so all of the data downloaded is flat. So if a channel is
-        # downloaded the videos on that channel will NOT be included.
-        opts = {"extract_flat": "in_playlist"}
+        # This will minimize downloading information at depth. So if a playlist is being
+        # downloaded the in depth video information is skipped.
+        opts = {"extract_flat": extract_flat}
 
         # Try downloading the information without cookies.
         try:
             with YoutubeDL(opts) as ytdl:
                 raw_json = ytdl.extract_info(url, download=False, process=process)
                 return ytdl.sanitize_info(raw_json)
+
         # If it looks like adding cookies will help try downloading the information
         # again with cookies.
         except Exception as e:
@@ -36,7 +45,7 @@ class YTDLAPI(Channel, Playlist, Video):
                 opts["cookiefile"] = str(self.cookie_file)
                 with YoutubeDL(opts) as ytdl:
                     raw_json = ytdl.extract_info(url, download=False, process=process)
-                return ytdl.sanitize_info(raw_json)
+                    return ytdl.sanitize_info(raw_json)
 
             raise
 

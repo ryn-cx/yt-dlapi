@@ -2,7 +2,7 @@
   "id": "UC4QobU6STFB0P71PMvOGN5A",
   "channel": "jawed",
   "channel_id": "UC4QobU6STFB0P71PMvOGN5A",
-  "title": "jawed - Videos",
+  "title": "jawed - Playlists",
   "availability": null,
   "channel_follower_count": 5720000,
   "description": "",
@@ -88,58 +88,30 @@
   "_type": "playlist",
   "entries": [
     {
-      "_type": "url",
-      "ie_key": "Youtube",
-      "id": "jNQXAC9IVRw",
-      "url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
-      "title": "Me at the zoo",
-      "description": "Microplastics are accumulating in human brains at an alarming rate\nhttps://www.youtube.com/watch?v=0PT5c1z3LL8\n\n\u201cNanoplastics and Human Health\u201d with Matthew J Campen, PhD, MSPH\nhttps://www.yout...",
-      "duration": 19.0,
-      "channel_id": null,
-      "channel": null,
-      "channel_url": null,
-      "uploader": null,
-      "uploader_id": null,
-      "uploader_url": null,
+      "title": "YouTube",
       "thumbnails": [
         {
-          "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGFUgWShlMA8=&rs=AOn4CLD0z8RhQhBpOGg7rE1WwNmsXhJviQ",
-          "height": 94,
-          "width": 168
-        },
-        {
-          "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwE1CMQBEG5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGFUgWShlMA8=&rs=AOn4CLDEByjISd3w-TM9Pzzz3rxWDxLQNw",
-          "height": 110,
-          "width": 196
-        },
-        {
-          "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwE2CPYBEIoBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARhVIFkoZTAP&rs=AOn4CLAtWrYHlO_zHK-I-52tzA86tqSeAw",
-          "height": 138,
-          "width": 246
-        },
-        {
-          "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARhVIFkoZTAP&rs=AOn4CLB7NY0fx4yZYDj27223V3b7Sowf5w",
-          "height": 188,
-          "width": 336
+          "url": "https://i.ytimg.com/vi/lVI_J1cbFb4/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDVqFbKk0N9ouWYLfUN_YJQkGKleg",
+          "height": 270,
+          "width": 480
         }
       ],
-      "timestamp": null,
-      "release_timestamp": null,
-      "availability": null,
-      "view_count": 372395946,
-      "live_status": null,
-      "channel_is_verified": true,
+      "duration": null,
+      "ie_key": "YoutubeTab",
+      "id": "PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh",
+      "_type": "url",
+      "url": "https://www.youtube.com/playlist?list=PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh",
       "__x_forwarded_for_ip": null
     }
   ],
   "extractor_key": "YoutubeTab",
   "extractor": "youtube:tab",
-  "webpage_url": "https://www.youtube.com/jawed/videos",
-  "original_url": "https://www.youtube.com/jawed",
-  "webpage_url_basename": "videos",
+  "webpage_url": "https://www.youtube.com/channel/UC4QobU6STFB0P71PMvOGN5A/playlists",
+  "original_url": "https://www.youtube.com/channel/UC4QobU6STFB0P71PMvOGN5A/playlists",
+  "webpage_url_basename": "playlists",
   "webpage_url_domain": "youtube.com",
   "release_year": null,
-  "epoch": 1758953505,
+  "epoch": 1758977536,
   "_version": {
     "version": "2025.09.26",
     "current_git_head": null,

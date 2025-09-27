@@ -5,15 +5,15 @@ from yt_dlapi.protocol import YTDLAPIProtocol
 from .models import Model
 
 
-class Channel(YTDLAPIProtocol):
-    def parse_channel(self, data: dict[str, Any]) -> Model:
-        return self.parse_response(Model, data, "channel")
+class ChannelUploads(YTDLAPIProtocol):
+    def parse_channel_playlists(self, data: dict[str, Any]) -> Model:
+        return self.parse_response(Model, data, "channel_playlists")
 
     @overload
-    def download_channel(self, *, channel_name: str) -> dict[str, Any]: ...
+    def download_channel_playlists(self, *, channel_name: str) -> dict[str, Any]: ...
     @overload
-    def download_channel(self, *, channel_id: str) -> dict[str, Any]: ...
-    def download_channel(
+    def download_channel_playlists(self, *, channel_id: str) -> dict[str, Any]: ...
+    def download_channel_playlists(
         self,
         *,
         channel_name: str | None = None,
@@ -23,17 +23,19 @@ class Channel(YTDLAPIProtocol):
             msg = "Only one of channel_name or channel_id should be provided."
             raise ValueError(msg)
         if channel_name:
-            return self.yt_dlp_request(f"https://www.youtube.com/{channel_name}")
+            url = f"https://www.youtube.com/{channel_name}/playlists"
+            return self.yt_dlp_request(url, process=True)
         if channel_id:
-            return self.yt_dlp_request(f"https://www.youtube.com/channel/{channel_id}")
+            url = f"https://www.youtube.com/channel/{channel_id}/playlists"
+            return self.yt_dlp_request(url, process=True)
         msg = "channel_name or channel_id must be provided."
         raise ValueError(msg)
 
     @overload
-    def get_channel(self, *, channel_name: str) -> Model: ...
+    def get_channel_playlists(self, *, channel_name: str) -> Model: ...
     @overload
-    def get_channel(self, *, channel_id: str) -> Model: ...
-    def get_channel(
+    def get_channel_playlists(self, *, channel_id: str) -> Model: ...
+    def get_channel_playlists(
         self,
         *,
         channel_id: str | None = None,
@@ -43,11 +45,11 @@ class Channel(YTDLAPIProtocol):
             msg = "Only one of channel_name or channel_id should be provided."
             raise ValueError(msg)
         if channel_name:
-            data = self.download_channel(channel_name=channel_name)
+            data = self.download_channel_playlists(channel_name=channel_name)
         elif channel_id:
-            data = self.download_channel(channel_id=channel_id)
+            data = self.download_channel_playlists(channel_id=channel_id)
         else:
             msg = "channel_name or channel_id must be provided."
             raise ValueError(msg)
 
-        return self.parse_channel(data)
+        return self.parse_channel_playlists(data)

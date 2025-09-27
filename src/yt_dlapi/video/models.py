@@ -6,6 +6,13 @@ from __future__ import annotations
 from pydantic import BaseModel, ConfigDict, Field
 
 
+class DownloaderOptions(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    http_chunk_size: int
+
+
 class Fragment(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -14,63 +21,38 @@ class Fragment(BaseModel):
     duration: float
 
 
-class HttpHeaders(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    user_agent: str = Field(..., alias="User-Agent")
-    accept: str = Field(..., alias="Accept")
-    accept_language: str = Field(..., alias="Accept-Language")
-    sec_fetch_mode: str = Field(..., alias="Sec-Fetch-Mode")
-
-
-class DownloaderOptions(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    http_chunk_size: int
-
-
 class Format(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
-    format_id: str
-    format_note: str | None = None
-    ext: str
-    protocol: str
-    acodec: str
-    vcodec: str
-    url: str
-    width: int | None = None
-    height: int | None = None
-    fps: float | None = None
-    rows: int | None = None
-    columns: int | None = None
-    fragments: list[Fragment] | None = None
-    audio_ext: str
-    video_ext: str
-    vbr: float | None = None
-    abr: float | None = None
-    tbr: float | None = None
-    resolution: str
-    aspect_ratio: float | None = None
-    filesize_approx: int | None = None
-    http_headers: HttpHeaders
-    format: str
     asr: int | None = None
     filesize: int | None = None
+    format_id: str
+    format_note: str | None = None
     source_preference: int | None = None
+    fps: float | None = None
     audio_channels: int | None = None
+    height: int | None = None
     quality: float | None = None
     has_drm: bool | None = None
+    tbr: float | None = None
+    filesize_approx: int | None = None
+    url: str
+    width: int | None = None
     language: str | None = None
     language_preference: int | None = None
     preference: None = None
-    dynamic_range: str | None = None
-    container: str | None = None
+    ext: str
+    vcodec: str
+    acodec: str
+    dynamic_range: None = None
     available_at: int | None = None
     downloader_options: DownloaderOptions | None = None
+    container: str | None = None
+    protocol: str | None = None
+    rows: int | None = None
+    columns: int | None = None
+    fragments: list[Fragment] | None = None
     format_index: None = None
     manifest_url: str | None = None
 
@@ -80,11 +62,9 @@ class Thumbnail(BaseModel):
         extra="forbid",
     )
     url: str
-    preference: int
-    id: str
     height: int | None = None
     width: int | None = None
-    resolution: str | None = None
+    preference: int
 
 
 class AbItem(BaseModel):
@@ -2015,7 +1995,6 @@ class Chapter(BaseModel):
     )
     start_time: float
     title: str
-    end_time: float
 
 
 class HeatmapItem(BaseModel):
@@ -2025,45 +2004,6 @@ class HeatmapItem(BaseModel):
     start_time: float
     end_time: float
     value: float
-
-
-class RequestedFormat(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    asr: int | None = None
-    filesize: int
-    format_id: str
-    format_note: str
-    source_preference: int
-    fps: int | None = None
-    audio_channels: int | None = None
-    height: int | None = None
-    quality: float
-    has_drm: bool
-    tbr: float
-    filesize_approx: int
-    url: str
-    width: int | None = None
-    language: str | None = None
-    language_preference: int
-    preference: None
-    ext: str
-    vcodec: str
-    acodec: str
-    dynamic_range: str | None = None
-    container: str
-    available_at: int
-    downloader_options: DownloaderOptions
-    protocol: str
-    video_ext: str
-    audio_ext: str
-    abr: float
-    vbr: float
-    resolution: str
-    aspect_ratio: float | None = None
-    http_headers: HttpHeaders
-    format: str
 
 
 class FieldVersion(BaseModel):
@@ -2114,44 +2054,13 @@ class Model(BaseModel):
     upload_date: str
     timestamp: int
     availability: str
+    field__post_extractor: None = Field(..., alias="__post_extractor")
     original_url: str
     webpage_url_basename: str
     webpage_url_domain: str
     extractor: str
     extractor_key: str
-    playlist: None
-    playlist_index: None
-    display_id: str
-    fulltitle: str
-    duration_string: str
-    release_year: None
-    is_live: bool
-    was_live: bool
-    requested_subtitles: None
-    field_has_drm: None = Field(..., alias="_has_drm")
     epoch: int
-    requested_formats: list[RequestedFormat]
-    format: str
-    format_id: str
-    ext: str
-    protocol: str
-    language: str | None = None
-    format_note: str
-    filesize_approx: int
-    tbr: float
-    width: int
-    height: int
-    resolution: str
-    fps: int
-    dynamic_range: str
-    vcodec: str
-    vbr: float
-    stretched_ratio: None
-    aspect_ratio: float
-    acodec: str
-    abr: float
-    asr: int
-    audio_channels: int
     field_type: str = Field(..., alias="_type")
     field_version: FieldVersion = Field(..., alias="_version")
     location: str | None = None

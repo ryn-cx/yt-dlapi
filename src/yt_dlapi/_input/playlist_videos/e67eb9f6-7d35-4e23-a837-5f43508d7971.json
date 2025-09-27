@@ -1,0 +1,108 @@
+{
+  "id": "UU4QobU6STFB0P71PMvOGN5A",
+  "title": "Uploads from jawed",
+  "availability": "public",
+  "channel_follower_count": null,
+  "description": "",
+  "tags": [],
+  "thumbnails": [
+    {
+      "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwEwCKgBEF5IWvKriqkDIwgBFQAAiEIYAfABAfgBvgKAAvABigIMCAAQARhVIFkoZTAP&rs=AOn4CLDrlUsFyWeYqxx-GVhoVmyrdLX1Mw",
+      "height": 94,
+      "width": 168,
+      "id": "0",
+      "resolution": "168x94"
+    },
+    {
+      "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwEwCMQBEG5IWvKriqkDIwgBFQAAiEIYAfABAfgBvgKAAvABigIMCAAQARhVIFkoZTAP&rs=AOn4CLDw3_tnaIJlqTOXjPNNa0GCPb-hkw",
+      "height": 110,
+      "width": 196,
+      "id": "1",
+      "resolution": "196x110"
+    },
+    {
+      "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwExCPYBEIoBSFryq4qpAyMIARUAAIhCGAHwAQH4Ab4CgALwAYoCDAgAEAEYVSBZKGUwDw==&rs=AOn4CLBjDqag9EZyWMs56tG_EynO13cihQ",
+      "height": 138,
+      "width": 246,
+      "id": "2",
+      "resolution": "246x138"
+    },
+    {
+      "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwExCNACELwBSFryq4qpAyMIARUAAIhCGAHwAQH4Ab4CgALwAYoCDAgAEAEYVSBZKGUwDw==&rs=AOn4CLBup3YZ8rAcAVSV0yok3hVVe4lErA",
+      "height": 188,
+      "width": 336,
+      "id": "3",
+      "resolution": "336x188"
+    }
+  ],
+  "modified_date": "20240717",
+  "view_count": 497723,
+  "playlist_count": 1,
+  "channel": "jawed",
+  "channel_id": "UC4QobU6STFB0P71PMvOGN5A",
+  "uploader_id": "@jawed",
+  "uploader": "jawed",
+  "channel_url": "https://www.youtube.com/channel/UC4QobU6STFB0P71PMvOGN5A",
+  "uploader_url": "https://www.youtube.com/@jawed",
+  "_type": "playlist",
+  "entries": [
+    {
+      "_type": "url",
+      "ie_key": "Youtube",
+      "id": "jNQXAC9IVRw",
+      "url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+      "title": "Me at the zoo",
+      "description": null,
+      "duration": 19,
+      "channel_id": "UC4QobU6STFB0P71PMvOGN5A",
+      "channel": "jawed",
+      "channel_url": "https://www.youtube.com/channel/UC4QobU6STFB0P71PMvOGN5A",
+      "uploader": "jawed",
+      "uploader_id": "@jawed",
+      "uploader_url": "https://www.youtube.com/@jawed",
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGFUgWShlMA8=&rs=AOn4CLD0z8RhQhBpOGg7rE1WwNmsXhJviQ",
+          "height": 94,
+          "width": 168
+        },
+        {
+          "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwE1CMQBEG5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AG-AoAC8AGKAgwIABABGFUgWShlMA8=&rs=AOn4CLDEByjISd3w-TM9Pzzz3rxWDxLQNw",
+          "height": 110,
+          "width": 196
+        },
+        {
+          "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwE2CPYBEIoBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARhVIFkoZTAP&rs=AOn4CLAtWrYHlO_zHK-I-52tzA86tqSeAw",
+          "height": 138,
+          "width": 246
+        },
+        {
+          "url": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBvgKAAvABigIMCAAQARhVIFkoZTAP&rs=AOn4CLB7NY0fx4yZYDj27223V3b7Sowf5w",
+          "height": 188,
+          "width": 336
+        }
+      ],
+      "timestamp": null,
+      "release_timestamp": null,
+      "availability": null,
+      "view_count": 372000000,
+      "live_status": null,
+      "channel_is_verified": null,
+      "__x_forwarded_for_ip": null
+    }
+  ],
+  "extractor_key": "YoutubeTab",
+  "extractor": "youtube:tab",
+  "webpage_url": "https://www.youtube.com/playlist?list=UU4QobU6STFB0P71PMvOGN5A",
+  "original_url": "https://www.youtube.com/playlist?list=UU4QobU6STFB0P71PMvOGN5A",
+  "webpage_url_basename": "playlist",
+  "webpage_url_domain": "youtube.com",
+  "release_year": null,
+  "epoch": 1758977670,
+  "_version": {
+    "version": "2025.09.26",
+    "current_git_head": null,
+    "release_git_head": "12b57d2858845c0c7fb33bf9aa8ed7be6905535d",
+    "repository": "yt-dlp/yt-dlp"
+  }
+}
