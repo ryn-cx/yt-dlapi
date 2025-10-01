@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class YTDLAPIProtocol(Protocol):
-    def yt_dlp_request(
+    def _yt_dlp_request(
         self,
         url: str,
         *,
@@ -12,7 +12,7 @@ class YTDLAPIProtocol(Protocol):
         extract_flat: bool = True,
     ) -> dict[str, Any]: ...
 
-    def parse_response[T: BaseModel](
+    def _parse_response[T: BaseModel](
         self,
         response_model: type[T],
         data: dict[str, Any],

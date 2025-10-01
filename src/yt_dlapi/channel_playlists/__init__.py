@@ -6,8 +6,16 @@ from .models import Model
 
 
 class ChannelUploads(YTDLAPIProtocol):
-    def parse_channel_playlists(self, data: dict[str, Any]) -> Model:
-        return self.parse_response(Model, data, "channel_playlists")
+    def parse_channel_playlists(
+        self,
+        data: dict[str, Any],
+        *,
+        update: bool = False,
+    ) -> Model:
+        if update:
+            return self._parse_response(Model, data, "channel_playlists")
+
+        return Model.model_validate(data)
 
     @overload
     def download_channel_playlists(self, *, channel_name: str) -> dict[str, Any]: ...
@@ -24,10 +32,10 @@ class ChannelUploads(YTDLAPIProtocol):
             raise ValueError(msg)
         if channel_name:
             url = f"https://www.youtube.com/{channel_name}/playlists"
-            return self.yt_dlp_request(url, process=True)
+            return self._yt_dlp_request(url, process=True)
         if channel_id:
             url = f"https://www.youtube.com/channel/{channel_id}/playlists"
-            return self.yt_dlp_request(url, process=True)
+            return self._yt_dlp_request(url, process=True)
         msg = "channel_name or channel_id must be provided."
         raise ValueError(msg)
 

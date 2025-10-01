@@ -8,10 +8,13 @@ from .models import Model
 class Video(YTDLAPIProtocol):
     def download_video(self, video_id: str) -> dict[str, Any]:
         url = f"https://www.youtube.com/watch?v={video_id}"
-        return self.yt_dlp_request(url=url)
+        return self._yt_dlp_request(url=url)
 
-    def parse_video(self, data: dict[str, Any]) -> Model:
-        return self.parse_response(Model, data, "video")
+    def parse_video(self, data: dict[str, Any], *, update: bool = False) -> Model:
+        if update:
+            return self._parse_response(Model, data, "video")
+
+        return Model.model_validate(data)
 
     def get_video(self, channel_name: str) -> Model:
         data = self.download_video(channel_name)
