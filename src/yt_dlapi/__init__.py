@@ -19,7 +19,7 @@ class YTDLAPI(Channel, Playlist, Video, ChannelUploads, PlaylistVideos):
     def __init__(self, cookie_file: Path | None = None) -> None:
         self.cookie_file = cookie_file
 
-    def yt_dlp_request(
+    def _yt_dlp_request(
         self,
         url: str,
         *,
@@ -49,7 +49,7 @@ class YTDLAPI(Channel, Playlist, Video, ChannelUploads, PlaylistVideos):
 
             raise
 
-    def parse_response[T: BaseModel](
+    def _parse_response[T: BaseModel](
         self,
         response_model: type[T],
         data: dict[str, Any],
