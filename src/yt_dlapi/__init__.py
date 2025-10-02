@@ -6,12 +6,18 @@ from pydantic import BaseModel, ValidationError
 from yt_dlp import YoutubeDL
 
 from .channel import ChannelMixin
+from .channel.models import Channel
 from .channel_playlists import ChannelPlaylistsMixin
+from .channel_playlists.models import ChannelPlaylists
 from .playlist import PlaylistMixin
+from .playlist.models import Playlist
 from .playlist_videos import PlaylistVideosMixin
+from .playlist_videos.models import PlaylistVideos
 from .update_files import Updater
 from .video import VideoMixin
+from .video.models import Video
 
+RESPONSE_MODELS = Channel | Playlist | PlaylistVideos | Video | ChannelPlaylists
 logger = logging.getLogger(__name__)
 
 
@@ -70,3 +76,7 @@ class YTDLAPI(
             updater.remove_redundant_files()
             msg = "Parsing error, models updated, try again."
             raise ValueError(msg) from e
+
+    def dump_response(self, data: RESPONSE_MODELS) -> dict[str, Any]:
+        """Dump an API response to a JSON serializable object."""
+        return data.model_dump(mode="json", by_alias=True, exclude_unset=True)
