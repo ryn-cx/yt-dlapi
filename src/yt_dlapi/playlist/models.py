@@ -25,7 +25,7 @@ class FieldVersion(BaseModel):
     repository: str
 
 
-class Model(BaseModel):
+class Playlist(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )

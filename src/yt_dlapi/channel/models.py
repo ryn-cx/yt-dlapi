@@ -13,45 +13,8 @@ class Thumbnail(BaseModel):
     url: str
     height: int | None = None
     width: int | None = None
-    preference: int | None = None
     id: str | None = None
-    resolution: str | None = None
-
-
-class Thumbnail1(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    url: str
-    height: int
-    width: int
-
-
-class Entry(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    field_type: str = Field(..., alias="_type")
-    ie_key: str
-    id: str
-    url: str
-    title: str
-    description: str
-    duration: float
-    channel_id: None
-    channel: None
-    channel_url: None
-    uploader: None
-    uploader_id: None
-    uploader_url: None
-    thumbnails: list[Thumbnail1]
-    timestamp: None
-    release_timestamp: None
-    availability: None
-    view_count: int
-    live_status: None
-    channel_is_verified: bool
-    field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
+    preference: int | None = None
 
 
 class FieldVersion(BaseModel):
@@ -64,7 +27,7 @@ class FieldVersion(BaseModel):
     repository: str
 
 
-class Model(BaseModel):
+class Channel(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
@@ -81,17 +44,16 @@ class Model(BaseModel):
     uploader_url: str
     modified_date: None
     view_count: None
-    playlist_count: int | None = None
+    playlist_count: None
     uploader: str
     channel_url: str
     field_type: str = Field(..., alias="_type")
-    entries: str | list[Entry]
+    entries: str
     extractor_key: str
     extractor: str
     webpage_url: str
     original_url: str
     webpage_url_basename: str
     webpage_url_domain: str
-    release_year: None = None
     epoch: int
     field_version: FieldVersion = Field(..., alias="_version")

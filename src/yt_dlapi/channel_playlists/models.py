@@ -51,7 +51,7 @@ class FieldVersion(BaseModel):
     repository: str
 
 
-class Model(BaseModel):
+class ChannelPlaylists(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
