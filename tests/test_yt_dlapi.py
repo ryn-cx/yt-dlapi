@@ -25,36 +25,31 @@ class TestParsing:
         for json_file in self.get_test_files("channel"):
             file_content = json.loads(json_file.read_text())
             parsed = client.parse_channel(file_content)
-            dumped = parsed.model_dump(mode="json", by_alias=True, exclude_unset=True)
-            assert file_content == dumped
+            assert file_content == client.dump_response(parsed)
 
     def test_parse_playlist(self) -> None:
         for json_file in self.get_test_files("playlist"):
             file_content = json.loads(json_file.read_text())
             parsed = client.parse_playlist(file_content)
-            dumped = parsed.model_dump(mode="json", by_alias=True, exclude_unset=True)
-            assert file_content == dumped
+            assert file_content == client.dump_response(parsed)
 
     def test_parse_video(self) -> None:
         for json_file in self.get_test_files("video"):
             file_content = json.loads(json_file.read_text())
             parsed = client.parse_video(file_content)
-            dumped = parsed.model_dump(mode="json", by_alias=True, exclude_unset=True)
-            assert file_content == dumped
+            assert file_content == client.dump_response(parsed)
 
     def test_parse_channel_playlists(self) -> None:
         for json_file in self.get_test_files("channel_playlists"):
             file_content = json.loads(json_file.read_text())
             parsed = client.parse_channel_playlists(file_content)
-            dumped = parsed.model_dump(mode="json", by_alias=True, exclude_unset=True)
-            assert file_content == dumped
+            assert file_content == client.dump_response(parsed)
 
     def test_parse_playlist_videos(self) -> None:
         for json_file in self.get_test_files("playlist_videos"):
             file_content = json.loads(json_file.read_text())
             parsed = client.parse_playlist_videos(file_content)
-            dumped = parsed.model_dump(mode="json", by_alias=True, exclude_unset=True)
-            assert file_content == dumped
+            assert file_content == client.dump_response(parsed)
 
 
 class TestGet:
