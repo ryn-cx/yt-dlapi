@@ -4,25 +4,17 @@ version = "0.1.0"
 description = "Unofficial YouTube API based on yt-dlp"
 readme = "README.md"
 authors = [
-    { name = "ryn-cx", email = "84663588+ryn-cx@users.noreply.github.com" }
+    { name = "ryn-cx", email = "84663588+ryn-cx@users.noreply.github.com" },
 ]
 requires-python = ">=3.13"
-dependencies = [
-    "gapix",
-    "yt-dlp>=2025.9.26",
-]
+dependencies = ["gapix", "yt-dlp>=2025.9.26"]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-dev = [
-    "pre-commit>=4.3.0",
-    "pylint>=3.3.8",
-    "pytest>=8.4.2",
-    "ruff>=0.13.2",
-]
+dev = ["pre-commit>=4.3.0", "pylint>=3.3.8", "pytest>=8.4.2", "ruff>=0.13.2"]
 
 [tool.ruff.lint]
 select = ["ALL"] # Enable all linters.
@@ -59,3 +51,7 @@ convention = "google"
 
 [tool.uv.sources]
 gapix = { git = "https://github.com/ryn-cx/gapix" }
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
