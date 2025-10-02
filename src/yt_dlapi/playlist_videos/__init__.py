@@ -2,10 +2,10 @@ from typing import Any
 
 from yt_dlapi.protocol import YTDLAPIProtocol
 
-from .models import Model
+from .models import PlaylistVideos
 
 
-class PlaylistVideos(YTDLAPIProtocol):
+class PlaylistVideosMixin(YTDLAPIProtocol):
     def download_playlist_videos(self, playlist_id: str) -> dict[str, Any]:
         url = f"https://www.youtube.com/playlist?list={playlist_id}"
         # Need to get the episodes of the playlist so process must be False.
@@ -16,13 +16,13 @@ class PlaylistVideos(YTDLAPIProtocol):
         data: dict[str, Any],
         *,
         update: bool = False,
-    ) -> Model:
+    ) -> PlaylistVideos:
         if update:
-            return self._parse_response(Model, data, "playlist_videos")
+            return self._parse_response(PlaylistVideos, data, "playlist_videos")
 
-        return Model.model_validate(data)
+        return PlaylistVideos.model_validate(data)
 
-    def get_playlist_videos(self, channel_name: str) -> Model:
+    def get_playlist_videos(self, channel_name: str) -> PlaylistVideos:
         data = self.download_playlist_videos(channel_name)
 
         return self.parse_playlist_videos(data)

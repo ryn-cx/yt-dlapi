@@ -2,15 +2,15 @@ from typing import Any, overload
 
 from yt_dlapi.protocol import YTDLAPIProtocol
 
-from .models import Model
+from .models import Channel
 
 
-class Channel(YTDLAPIProtocol):
-    def parse_channel(self, data: dict[str, Any], *, update: bool = False) -> Model:
+class ChannelMixin(YTDLAPIProtocol):
+    def parse_channel(self, data: dict[str, Any], *, update: bool = False) -> Channel:
         if update:
-            return self._parse_response(Model, data, "channel")
+            return self._parse_response(Channel, data, "channel")
 
-        return Model.model_validate(data)
+        return Channel.model_validate(data)
 
     @overload
     def _download_channel(self, *, channel_name: str) -> dict[str, Any]: ...
@@ -33,15 +33,15 @@ class Channel(YTDLAPIProtocol):
         raise ValueError(msg)
 
     @overload
-    def get_channel(self, *, channel_name: str) -> Model: ...
+    def get_channel(self, *, channel_name: str) -> Channel: ...
     @overload
-    def get_channel(self, *, channel_id: str) -> Model: ...
+    def get_channel(self, *, channel_id: str) -> Channel: ...
     def get_channel(
         self,
         *,
         channel_id: str | None = None,
         channel_name: str | None = None,
-    ) -> Model:
+    ) -> Channel:
         if channel_name and channel_id:
             msg = "Only one of channel_name or channel_id should be provided."
             raise ValueError(msg)

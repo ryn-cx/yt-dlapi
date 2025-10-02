@@ -2,21 +2,21 @@ from typing import Any
 
 from yt_dlapi.protocol import YTDLAPIProtocol
 
-from .models import Model
+from .models import Playlist
 
 
-class Playlist(YTDLAPIProtocol):
+class PlaylistMixin(YTDLAPIProtocol):
     def download_playlist(self, playlist_id: str) -> dict[str, Any]:
         url = f"https://www.youtube.com/playlist?list={playlist_id}"
         return self._yt_dlp_request(url=url)
 
-    def parse_playlist(self, data: dict[str, Any], *, update: bool = False) -> Model:
+    def parse_playlist(self, data: dict[str, Any], *, update: bool = False) -> Playlist:
         if update:
-            return self._parse_response(Model, data, "playlist")
+            return self._parse_response(Playlist, data, "playlist")
 
-        return Model.model_validate(data)
+        return Playlist.model_validate(data)
 
-    def get_playlist(self, channel_name: str) -> Model:
+    def get_playlist(self, channel_name: str) -> Playlist:
         data = self.download_playlist(channel_name)
 
         return self.parse_playlist(data)

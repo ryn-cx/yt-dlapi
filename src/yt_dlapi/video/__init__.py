@@ -2,21 +2,21 @@ from typing import Any
 
 from yt_dlapi.protocol import YTDLAPIProtocol
 
-from .models import Model
+from .models import Video
 
 
-class Video(YTDLAPIProtocol):
+class VideoMixin(YTDLAPIProtocol):
     def download_video(self, video_id: str) -> dict[str, Any]:
         url = f"https://www.youtube.com/watch?v={video_id}"
         return self._yt_dlp_request(url=url)
 
-    def parse_video(self, data: dict[str, Any], *, update: bool = False) -> Model:
+    def parse_video(self, data: dict[str, Any], *, update: bool = False) -> Video:
         if update:
-            return self._parse_response(Model, data, "video")
+            return self._parse_response(Video, data, "video")
 
-        return Model.model_validate(data)
+        return Video.model_validate(data)
 
-    def get_video(self, channel_name: str) -> Model:
+    def get_video(self, channel_name: str) -> Video:
         data = self.download_video(channel_name)
 
         return self.parse_video(data)

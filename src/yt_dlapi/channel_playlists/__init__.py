@@ -2,20 +2,20 @@ from typing import Any, overload
 
 from yt_dlapi.protocol import YTDLAPIProtocol
 
-from .models import Model
+from .models import ChannelPlaylists
 
 
-class ChannelUploads(YTDLAPIProtocol):
+class ChannelPlaylistsMixin(YTDLAPIProtocol):
     def parse_channel_playlists(
         self,
         data: dict[str, Any],
         *,
         update: bool = False,
-    ) -> Model:
+    ) -> ChannelPlaylists:
         if update:
-            return self._parse_response(Model, data, "channel_playlists")
+            return self._parse_response(ChannelPlaylists, data, "channel_playlists")
 
-        return Model.model_validate(data)
+        return ChannelPlaylists.model_validate(data)
 
     @overload
     def download_channel_playlists(self, *, channel_name: str) -> dict[str, Any]: ...
@@ -40,15 +40,15 @@ class ChannelUploads(YTDLAPIProtocol):
         raise ValueError(msg)
 
     @overload
-    def get_channel_playlists(self, *, channel_name: str) -> Model: ...
+    def get_channel_playlists(self, *, channel_name: str) -> ChannelPlaylists: ...
     @overload
-    def get_channel_playlists(self, *, channel_id: str) -> Model: ...
+    def get_channel_playlists(self, *, channel_id: str) -> ChannelPlaylists: ...
     def get_channel_playlists(
         self,
         *,
         channel_id: str | None = None,
         channel_name: str | None = None,
-    ) -> Model:
+    ) -> ChannelPlaylists:
         if channel_name and channel_id:
             msg = "Only one of channel_name or channel_id should be provided."
             raise ValueError(msg)

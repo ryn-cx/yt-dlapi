@@ -63,7 +63,7 @@ class FieldVersion(BaseModel):
     repository: str
 
 
-class Model(BaseModel):
+class PlaylistVideos(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )

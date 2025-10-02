@@ -5,17 +5,23 @@ from typing import Any
 from pydantic import BaseModel, ValidationError
 from yt_dlp import YoutubeDL
 
-from .channel import Channel
-from .channel_playlists import ChannelUploads
-from .playlist import Playlist
-from .playlist_videos import PlaylistVideos
+from .channel import ChannelMixin
+from .channel_playlists import ChannelPlaylistsMixin
+from .playlist import PlaylistMixin
+from .playlist_videos import PlaylistVideosMixin
 from .update_files import Updater
-from .video import Video
+from .video import VideoMixin
 
 logger = logging.getLogger(__name__)
 
 
-class YTDLAPI(Channel, Playlist, Video, ChannelUploads, PlaylistVideos):
+class YTDLAPI(
+    ChannelMixin,
+    PlaylistMixin,
+    VideoMixin,
+    ChannelPlaylistsMixin,
+    PlaylistVideosMixin,
+):
     def __init__(self, cookie_file: Path | None = None) -> None:
         self.cookie_file = cookie_file
 
