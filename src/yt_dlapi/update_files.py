@@ -12,14 +12,14 @@ class Updater(GAPIX):
     def __init__(self, endpoint: str) -> None:
         self.endpoint = endpoint
 
-    def endpoint_name(self) -> str:
-        return f"{self.endpoint}"
-
     def output_file(self) -> Path:
-        return JUST_SCRAPE_DIR / f"{self.endpoint_name()}/models.py"
+        return JUST_SCRAPE_DIR / f"{self.endpoint}/models.py"
 
     def input_folder(self) -> Path:
-        return TEST_FILE_DIR / self.endpoint_name()
+        return TEST_FILE_DIR / self.endpoint
+
+    def class_name(self) -> str:
+        return self.endpoint.replace("_", " ").title().replace(" ", "")
 
 
 def update_all_schemas() -> None:
@@ -27,8 +27,7 @@ def update_all_schemas() -> None:
         if endpoint.is_dir():
             logger.info("Updating schema for %s", endpoint.name)
             updater = Updater(endpoint.name)
-            class_name = endpoint.name.replace("_", " ").title().replace(" ", "")
-            updater.generate_schema(class_name=class_name)
+            updater.generate_schema()
             updater.remove_redundant_files()
 
 
