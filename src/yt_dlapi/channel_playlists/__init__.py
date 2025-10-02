@@ -60,4 +60,4 @@ class ChannelPlaylistsMixin(YTDLAPIProtocol):
             msg = "channel_name or channel_id must be provided."
             raise ValueError(msg)
 
-        return self.parse_channel_playlists(data)
+        return self.parse_channel_playlists(data, update=True)

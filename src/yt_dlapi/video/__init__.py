@@ -19,4 +19,4 @@ class VideoMixin(YTDLAPIProtocol):
     def get_video(self, channel_name: str) -> Video:
         data = self.download_video(channel_name)
 
-        return self.parse_video(data)
+        return self.parse_video(data, update=True)

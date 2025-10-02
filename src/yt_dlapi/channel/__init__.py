@@ -53,4 +53,4 @@ class ChannelMixin(YTDLAPIProtocol):
             msg = "channel_name or channel_id must be provided."
             raise ValueError(msg)
 
-        return self.parse_channel(data)
+        return self.parse_channel(data, update=True)

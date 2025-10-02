@@ -19,4 +19,4 @@ class PlaylistMixin(YTDLAPIProtocol):
     def get_playlist(self, channel_name: str) -> Playlist:
         data = self.download_playlist(channel_name)
 
-        return self.parse_playlist(data)
+        return self.parse_playlist(data, update=True)

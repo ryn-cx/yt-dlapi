@@ -25,4 +25,4 @@ class PlaylistVideosMixin(YTDLAPIProtocol):
     def get_playlist_videos(self, channel_name: str) -> PlaylistVideos:
         data = self.download_playlist_videos(channel_name)
 
-        return self.parse_playlist_videos(data)
+        return self.parse_playlist_videos(data, update=True)
