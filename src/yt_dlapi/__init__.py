@@ -13,7 +13,7 @@ from .playlist import PlaylistMixin
 from .playlist.models import Playlist
 from .playlist_videos import PlaylistVideosMixin
 from .playlist_videos.models import PlaylistVideos
-from .update_files import Updater
+from .update_files import add_test_file, update_model
 from .video import VideoMixin
 from .video.models import Video
 
@@ -70,10 +70,8 @@ class YTDLAPI(
         try:
             return response_model.model_validate(data)
         except ValidationError as e:
-            updater = Updater(name)
-            updater.add_test_file(data)
-            updater.generate_schema()
-            updater.remove_redundant_files()
+            add_test_file(name, data)
+            update_model(name)
             msg = "Parsing error, models updated, try again."
             raise ValueError(msg) from e
 
