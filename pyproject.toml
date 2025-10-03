@@ -7,7 +7,10 @@ authors = [
     { name = "ryn-cx", email = "84663588+ryn-cx@users.noreply.github.com" },
 ]
 requires-python = ">=3.13"
-dependencies = ["gapix", "yt-dlp>=2025.9.26"]
+dependencies = [
+ "gapi",
+ "yt-dlp>=2025.9.26",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -49,9 +52,9 @@ convention = "google"
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["S101"] # Asserts should be allowed in tests.
 
-[tool.uv.sources]
-gapix = { git = "https://github.com/ryn-cx/gapix" }
-
 [tool.pytest.ini_options]
 log_cli = true
 log_cli_level = "INFO"
+
+[tool.uv.sources]
+gapi = { git = "https://github.com/ryn-cx/gapi" }
