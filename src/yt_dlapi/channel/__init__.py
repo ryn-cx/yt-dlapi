@@ -26,7 +26,7 @@ class ChannelMixin(YTDLAPIProtocol):
             msg = "Only one of channel_name or channel_id should be provided."
             raise ValueError(msg)
         if channel_name:
-            return self._yt_dlp_request(f"https://www.youtube.com/{channel_name}")
+            return self._yt_dlp_request(f"https://www.youtube.com/@{channel_name}")
         if channel_id:
             return self._yt_dlp_request(f"https://www.youtube.com/channel/{channel_id}")
         msg = "channel_name or channel_id must be provided."
