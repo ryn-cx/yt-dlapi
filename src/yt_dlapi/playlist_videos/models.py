@@ -35,7 +35,7 @@ class Entry(BaseModel):
     id: str
     url: str
     title: str
-    description: None
+    description: None = None
     duration: int | None = None
     channel_id: str | None = None
     channel: str | None = None
@@ -44,13 +44,14 @@ class Entry(BaseModel):
     uploader_id: str | None = None
     uploader_url: str | None = None
     thumbnails: list[Thumbnail1]
-    timestamp: None
-    release_timestamp: None
-    availability: None
-    view_count: int | None = None
-    live_status: None
-    channel_is_verified: None
+    timestamp: None = None
+    release_timestamp: int | None = None
+    availability: None = None
+    concurrent_view_count: int | None = None
+    live_status: str | None = None
+    channel_is_verified: None = None
     field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
+    view_count: int | None = None
 
 
 class FieldVersion(BaseModel):

@@ -5,7 +5,6 @@ from pathlib import Path
 import pytest
 
 from yt_dlapi import YTDLAPI
-from yt_dlapi.update_files import Updater
 
 # TODO: Having this hardcoded is kind of silly but it works.
 client = YTDLAPI(cookie_file=Path(Path.home(), "yt-dlp.txt"))
@@ -14,11 +13,9 @@ client = YTDLAPI(cookie_file=Path(Path.home(), "yt-dlp.txt"))
 class TestParsing:
     def get_test_files(self, endpoint: str) -> Iterator[Path]:
         """Get all JSON test files for a given endpoint."""
-        updater = Updater(endpoint)
-        dir_path = updater.input_folder()
+        dir_path = Path(__file__).parent.parent / "src/yt_dlapi/_input" / endpoint
         if not dir_path.exists():
             pytest.fail(f"{dir_path} not found")
-
         return dir_path.glob("*.json")
 
     def test_parse_channel(self) -> None:
