@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+ "bgutil-ytdlp-pot-provider>=1.2.2",
  "gapi",
  "yt-dlp>=2025.9.26",
 ]
