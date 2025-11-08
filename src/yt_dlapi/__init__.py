@@ -33,13 +33,13 @@ class YTDLAPI(
         cookie_file: Path | None = None,
         extractor_args: dict[str, dict[str, Any]] | None = None,
         *,
-        yt_dlp_logger: Any = None,
+        logger: Any = None,
         verbose: bool = False,
     ) -> None:
         self.cookie_file = cookie_file
         self.extractor_args = extractor_args
         self.verbose = verbose
-        self.yt_dlp_logger = yt_dlp_logger
+        self.logger = logger
 
     def _yt_dlp_request(
         self,
@@ -57,8 +57,8 @@ class YTDLAPI(
         if self.verbose:
             opts["verbose"] = True
 
-        if self.yt_dlp_logger is not None:
-            opts["logger"] = self.yt_dlp_logger
+        if self.logger is not None:
+            opts["logger"] = self.logger
 
         if self.extractor_args:
             opts["extractor_args"] = self.extractor_args
