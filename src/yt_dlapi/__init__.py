@@ -28,8 +28,18 @@ class YTDLAPI(
     ChannelPlaylistsMixin,
     PlaylistVideosMixin,
 ):
-    def __init__(self, cookie_file: Path | None = None) -> None:
+    def __init__(
+        self,
+        cookie_file: Path | None = None,
+        extractor_args: dict[str, dict[str, Any]] | None = None,
+        *,
+        yt_dlp_logger: Any = None,
+        verbose: bool = False,
+    ) -> None:
         self.cookie_file = cookie_file
+        self.extractor_args = extractor_args
+        self.verbose = verbose
+        self.yt_dlp_logger = yt_dlp_logger
 
     def _yt_dlp_request(
         self,
@@ -42,7 +52,16 @@ class YTDLAPI(
 
         # This will minimize downloading information at depth. So if a playlist is being
         # downloaded the in depth video information is skipped.
-        opts = {"extract_flat": extract_flat}
+        opts: dict[str, Any] = {"extract_flat": extract_flat}
+
+        if self.verbose:
+            opts["verbose"] = True
+
+        if self.yt_dlp_logger is not None:
+            opts["logger"] = self.yt_dlp_logger
+
+        if self.extractor_args:
+            opts["extractor_args"] = self.extractor_args
 
         # Try downloading the information without cookies.
         try:
