@@ -34,6 +34,7 @@ class Entry(BaseModel):
     title: str
     thumbnails: list[Thumbnail1]
     duration: None
+    timestamp: None
     ie_key: str
     id: str
     field_type: str = Field(..., alias="_type")

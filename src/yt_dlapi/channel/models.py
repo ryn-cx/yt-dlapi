@@ -13,35 +13,45 @@ class Thumbnail(BaseModel):
     url: str
     height: int | None = None
     width: int | None = None
-    id: str | None = None
     preference: int | None = None
+    id: str
+    resolution: str | None = None
+
+
+class Thumbnail1(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    url: str
+    height: int
+    width: int
 
 
 class Entry(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
-    id: str
-    channel: str
-    channel_id: str
-    title: str
-    availability: None
-    channel_follower_count: int
-    description: str
-    tags: list[str]
-    thumbnails: list[Thumbnail]
-    uploader_id: str
-    uploader_url: str
-    modified_date: None
-    view_count: None
-    playlist_count: None
-    uploader: str
-    channel_url: str
     field_type: str = Field(..., alias="_type")
-    entries: str
-    extractor_key: str
-    extractor: str
-    webpage_url: str
+    ie_key: str
+    id: str
+    url: str
+    title: str
+    description: str
+    duration: float
+    channel_id: None
+    channel: None
+    channel_url: None
+    uploader: None
+    uploader_id: None
+    uploader_url: None
+    thumbnails: list[Thumbnail1]
+    timestamp: None
+    release_timestamp: None
+    availability: None
+    view_count: int
+    live_status: None
+    channel_is_verified: bool
+    field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
 
 
 class FieldVersion(BaseModel):
@@ -71,16 +81,17 @@ class Channel(BaseModel):
     uploader_url: str
     modified_date: None
     view_count: None
-    playlist_count: None
+    playlist_count: int
     uploader: str
     channel_url: str
     field_type: str = Field(..., alias="_type")
-    entries: str | list[Entry]
+    entries: list[Entry]
+    extractor_key: str
+    extractor: str
     webpage_url: str
     original_url: str
     webpage_url_basename: str
     webpage_url_domain: str
-    extractor: str
-    extractor_key: str
+    release_year: None
     epoch: int
     field_version: FieldVersion = Field(..., alias="_version")

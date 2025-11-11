@@ -35,23 +35,22 @@ class Entry(BaseModel):
     id: str
     url: str
     title: str
-    description: None = None
-    duration: int | None = None
-    channel_id: str | None = None
-    channel: str | None = None
-    channel_url: str | None = None
-    uploader: str | None = None
-    uploader_id: str | None = None
-    uploader_url: str | None = None
+    description: None
+    duration: int
+    channel_id: str
+    channel: str
+    channel_url: str
+    uploader: str
+    uploader_id: str
+    uploader_url: str
     thumbnails: list[Thumbnail1]
-    timestamp: None = None
-    release_timestamp: int | None = None
-    availability: None = None
-    concurrent_view_count: int | None = None
-    live_status: str | None = None
-    channel_is_verified: None = None
+    timestamp: None
+    release_timestamp: None
+    availability: None
+    view_count: int
+    live_status: None
+    channel_is_verified: None
     field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
-    view_count: int | None = None
 
 
 class FieldVersion(BaseModel):
@@ -70,7 +69,7 @@ class PlaylistVideos(BaseModel):
     )
     id: str
     title: str
-    availability: str | None = None
+    availability: None
     channel_follower_count: None
     description: str
     tags: list

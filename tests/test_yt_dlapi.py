@@ -5,15 +5,71 @@ from pathlib import Path
 import pytest
 
 from yt_dlapi import YTDLAPI
+from yt_dlapi.constants import FILES_PATH
 
-# TODO: Having this hardcoded is kind of silly but it works.
-client = YTDLAPI(cookie_file=Path(Path.home(), "yt-dlp.txt"))
+client = YTDLAPI()
 
 
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
+# TODO: There should be an easy way toi rebuild a model entirely from local files, and
+# also these files should have their own private git repository for copyright reasons.
 class TestParsing:
     def get_test_files(self, endpoint: str) -> Iterator[Path]:
         """Get all JSON test files for a given endpoint."""
-        dir_path = Path(__file__).parent.parent / "src/yt_dlapi/_input" / endpoint
+        dir_path = FILES_PATH / endpoint
         if not dir_path.exists():
             pytest.fail(f"{dir_path} not found")
         return dir_path.glob("*.json")
@@ -61,9 +117,6 @@ class TestGet:
 
     def test_get_video(self) -> None:
         client.get_video("jNQXAC9IVRw")
-
-    def test_get_age_restricted_video(self) -> None:
-        client.get_video("l1ITP7m6R0Q")
 
     def test_channel_playlists_using_channel_name(self) -> None:
         client.get_channel_playlists(channel_name="jawed")

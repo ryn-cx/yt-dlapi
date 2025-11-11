@@ -8,7 +8,7 @@ from .models import Video
 class VideoMixin(YTDLAPIProtocol):
     def download_video(self, video_id: str) -> dict[str, Any]:
         url = f"https://www.youtube.com/watch?v={video_id}"
-        return self._yt_dlp_request(url=url)
+        return self._yt_dlp_request(url)
 
     def parse_video(self, data: dict[str, Any], *, update: bool = False) -> Video:
         if update:

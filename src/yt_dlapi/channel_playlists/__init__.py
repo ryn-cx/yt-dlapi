@@ -32,10 +32,10 @@ class ChannelPlaylistsMixin(YTDLAPIProtocol):
             raise ValueError(msg)
         if channel_name:
             url = f"https://www.youtube.com/{channel_name}/playlists"
-            return self._yt_dlp_request(url, process=True)
+            return self._yt_dlp_request(url)
         if channel_id:
             url = f"https://www.youtube.com/channel/{channel_id}/playlists"
-            return self._yt_dlp_request(url, process=True)
+            return self._yt_dlp_request(url)
         msg = "channel_name or channel_id must be provided."
         raise ValueError(msg)
 

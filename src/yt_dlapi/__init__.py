@@ -1,4 +1,5 @@
 import logging
+from logging import Logger
 from pathlib import Path
 from typing import Any
 
@@ -13,12 +14,12 @@ from .playlist import PlaylistMixin
 from .playlist.models import Playlist
 from .playlist_videos import PlaylistVideosMixin
 from .playlist_videos.models import PlaylistVideos
-from .update_files import add_test_file, update_model
+from .update_files import save_file, update_model
 from .video import VideoMixin
 from .video.models import Video
 
 RESPONSE_MODELS = Channel | Playlist | PlaylistVideos | Video | ChannelPlaylists
-logger = logging.getLogger(__name__)
+default_logger = logging.getLogger(__name__)
 
 
 class YTDLAPI(
@@ -31,13 +32,11 @@ class YTDLAPI(
     def __init__(
         self,
         cookie_file: Path | None = None,
-        extractor_args: dict[str, dict[str, Any]] | None = None,
         *,
-        logger: Any = None,
+        logger: Logger = default_logger,
         verbose: bool = False,
     ) -> None:
         self.cookie_file = cookie_file
-        self.extractor_args = extractor_args
         self.verbose = verbose
         self.logger = logger
 
@@ -45,27 +44,30 @@ class YTDLAPI(
         self,
         url: str,
         *,
-        process: bool = False,
+        process: bool = True,
         extract_flat: bool = True,
     ) -> dict[str, Any]:
-        logger.info("Downloading %s", url)
+        self.logger.info("Downloading %s", url)
 
-        # This will minimize downloading information at depth. So if a playlist is being
-        # downloaded the in depth video information is skipped.
-        opts: dict[str, Any] = {"extract_flat": extract_flat}
+        opts: dict[str, Any] = {}
+
+        # extract_flat determines how deep information should be downloaded. If True
+        # when downloading something like a playlist only basic information about the
+        # episodes will be downloaded, when False full information about each episode
+        # will be downloaded.
+        if extract_flat:
+            opts["extract_flat"] = extract_flat
 
         if self.verbose:
             opts["verbose"] = True
 
-        if self.logger is not None:
-            opts["logger"] = self.logger
-
-        if self.extractor_args:
-            opts["extractor_args"] = self.extractor_args
+        opts["logger"] = self.logger
 
         # Try downloading the information without cookies.
         try:
             with YoutubeDL(opts) as ytdl:
+                # Process determines whether or not child information is a generator
+                # object or the actual information.
                 raw_json = ytdl.extract_info(url, download=False, process=process)
                 return ytdl.sanitize_info(raw_json)
 
@@ -89,9 +91,9 @@ class YTDLAPI(
         try:
             return response_model.model_validate(data)
         except ValidationError as e:
-            add_test_file(name, data)
-            update_model(name)
-            msg = "Parsing error, models updated, try again."
+            save_file(name, data)
+            update_model(name, data)
+            msg = "Parsing error, model updated, try again."
             raise ValueError(msg) from e
 
     def dump_response(self, data: RESPONSE_MODELS) -> dict[str, Any]:
