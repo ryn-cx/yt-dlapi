@@ -4,6 +4,8 @@ from yt_dlapi.constants import FILES_PATH, YT_DLAPI_PATH
 
 if __name__ == "__main__":
     for input_folder in FILES_PATH.iterdir():
+        if input_folder.name == ".git":
+            continue
         name = input_folder.name
         schema_path = YT_DLAPI_PATH / f"{name}/schema.json"
         model_path = YT_DLAPI_PATH / f"{name}/models.py"
