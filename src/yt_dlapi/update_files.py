@@ -24,7 +24,7 @@ def update_model(
     apply_customizations(model_path, customizations)
 
 
-def save_file(name: str, data: dict[str, Any]) -> None:
+def save_file(name: str, data: INPUT_TYPE) -> None:
     """Add a new test file for a given endpoint."""
     input_folder = FILES_PATH / name
     new_json_path = input_folder / f"{uuid.uuid4()}.json"
