@@ -1,12 +1,11 @@
 import json
 import uuid
-from typing import Any
 
 from gapi import (
     INPUT_TYPE,
-    update_json_schema_and_pydantic_model,
-    apply_customizations,
     GapiCustomizations,
+    apply_customizations,
+    update_json_schema_and_pydantic_model,
 )
 
 from yt_dlapi.constants import FILES_PATH, YT_DLAPI_PATH
