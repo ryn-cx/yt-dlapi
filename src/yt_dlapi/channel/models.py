@@ -23,11 +23,23 @@ class Thumbnail1(BaseModel):
         extra="forbid",
     )
     url: str
+    height: int | None = None
+    width: int | None = None
+    preference: int | None = None
+    id: str | None = None
+    resolution: str | None = None
+
+
+class Thumbnail2(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    url: str
     height: int
     width: int
 
 
-class Entry(BaseModel):
+class Entry1(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
@@ -36,22 +48,59 @@ class Entry(BaseModel):
     id: str
     url: str
     title: str
-    description: str
-    duration: float
-    channel_id: None
-    channel: None
-    channel_url: None
-    uploader: None
-    uploader_id: None
-    uploader_url: None
-    thumbnails: list[Thumbnail1]
-    timestamp: None
-    release_timestamp: None
-    availability: None
-    view_count: int
-    live_status: None
-    channel_is_verified: bool
+    description: str | None = None
+    duration: float | None = None
+    channel_id: None = None
+    channel: str | None = None
+    channel_url: None = None
+    uploader: str | None = None
+    uploader_id: None = None
+    uploader_url: None = None
+    thumbnails: list[Thumbnail2]
+    timestamp: None = None
+    release_timestamp: None = None
+    availability: str | None = None
+    view_count: int | None = None
+    live_status: str | None = None
+    channel_is_verified: bool | None = None
     field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
+
+
+class Entry(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    field_type: str = Field(..., alias="_type")
+    ie_key: str | None = None
+    id: str
+    url: str | None = None
+    title: str
+    description: str | None = None
+    duration: float | None = None
+    channel_id: str | None = None
+    channel: str | None = None
+    channel_url: str | None = None
+    uploader: str | None = None
+    uploader_id: str | None = None
+    uploader_url: str | None = None
+    thumbnails: list[Thumbnail1]
+    timestamp: None = None
+    release_timestamp: None = None
+    availability: None
+    view_count: int | None = None
+    live_status: None = None
+    channel_is_verified: bool | None = None
+    field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
+    channel_follower_count: int | None = None
+    tags: list[str] | None = None
+    modified_date: None = None
+    playlist_count: int | None = None
+    entries: list[Entry1] | None = None
+    extractor_key: str | None = None
+    extractor: str | None = None
+    webpage_url: str | None = None
+    release_year: None = None
+    epoch: int | None = None
 
 
 class FieldVersion(BaseModel):

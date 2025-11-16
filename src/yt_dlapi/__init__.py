@@ -93,7 +93,7 @@ class YTDLAPI(
             parsed = response_model.model_validate(data)
         except ValidationError as e:
             save_file(name, data)
-            update_model(name, customizations)
+            update_model(name, data, customizations)
             msg = "Parsing error, model updated, try again."
             raise ValueError(msg) from e
 
