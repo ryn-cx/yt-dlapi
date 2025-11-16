@@ -5,7 +5,7 @@ from typing import Any
 
 from pydantic import BaseModel, ValidationError
 from yt_dlp import YoutubeDL
-
+from gapi import GapiCustomizations
 from .channel import ChannelMixin
 from .channel.models import Channel
 from .channel_playlists import ChannelPlaylistsMixin
@@ -82,19 +82,26 @@ class YTDLAPI(
 
             raise
 
-    def _parse_response[T: BaseModel](
+    def _parse_response[T: RESPONSE_MODELS](
         self,
         response_model: type[T],
         data: dict[str, Any],
         name: str,
+        customizations: GapiCustomizations | None = None,
     ) -> T:
         try:
-            return response_model.model_validate(data)
+            parsed = response_model.model_validate(data)
         except ValidationError as e:
             save_file(name, data)
-            update_model(name, data)
+            update_model(name, data, customizations)
             msg = "Parsing error, model updated, try again."
             raise ValueError(msg) from e
+
+        if self.dump_response(parsed) != data:
+            msg = "Parsed response does not match original response."
+            raise ValueError(msg)
+
+        return parsed
 
     def dump_response(self, data: RESPONSE_MODELS) -> dict[str, Any]:
         """Dump an API response to a JSON serializable object."""

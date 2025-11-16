@@ -2,16 +2,26 @@ import json
 import uuid
 from typing import Any
 
-from gapi import INPUT_TYPE, update_json_schema_and_pydantic_model
+from gapi import (
+    INPUT_TYPE,
+    update_json_schema_and_pydantic_model,
+    apply_customizations,
+    GapiCustomizations,
+)
 
 from yt_dlapi.constants import FILES_PATH, YT_DLAPI_PATH
 
 
-def update_model(name: str, data: INPUT_TYPE) -> None:
+def update_model(
+    name: str,
+    data: INPUT_TYPE,
+    customizations: GapiCustomizations | None = None,
+) -> None:
     """Update a specific response model based on input data."""
     schema_path = YT_DLAPI_PATH / f"{name}/schema.json"
     model_path = YT_DLAPI_PATH / f"{name}/models.py"
     update_json_schema_and_pydantic_model(data, schema_path, model_path, name)
+    apply_customizations(model_path, customizations)
 
 
 def save_file(name: str, data: dict[str, Any]) -> None:

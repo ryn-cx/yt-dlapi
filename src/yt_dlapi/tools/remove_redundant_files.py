@@ -1,6 +1,6 @@
 from gapi import remove_redundant_files
 
-from yt_dlapi.constants import FILES_PATH, YT_DLAPI_PATH
+from yt_dlapi.constants import FILES_PATH
 
 if __name__ == "__main__":
     for model in FILES_PATH.iterdir():
