@@ -36,7 +36,7 @@ class Entry(BaseModel):
     url: str
     title: str
     description: None
-    duration: int
+    duration: int | None = None
     channel_id: str | None = None
     channel: str
     channel_url: str | None = None
