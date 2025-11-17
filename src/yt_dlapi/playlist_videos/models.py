@@ -72,7 +72,7 @@ class PlaylistVideos(BaseModel):
     availability: None
     channel_follower_count: None
     description: str
-    tags: list
+    tags: list[None]
     thumbnails: list[Thumbnail]
     modified_date: str
     view_count: int
