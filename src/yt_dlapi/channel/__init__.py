@@ -8,7 +8,7 @@ from .models import Channel
 class ChannelMixin(YTDLAPIProtocol):
     def parse_channel(self, data: dict[str, Any], *, update: bool = False) -> Channel:
         if update:
-            return self._parse_response(Channel, data, "channel")
+            return self.parse_response(Channel, data, "channel")
 
         return Channel.model_validate(data)
 

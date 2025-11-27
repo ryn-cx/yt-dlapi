@@ -1,5 +1,7 @@
 from typing import TYPE_CHECKING, Any, Protocol
+
 from gapi import GapiCustomizations
+
 if TYPE_CHECKING:
     from yt_dlapi.__init__ import RESPONSE_MODELS
 
@@ -13,7 +15,7 @@ class YTDLAPIProtocol(Protocol):
         extract_flat: bool = True,
     ) -> dict[str, Any]: ...
 
-    def _parse_response[T: RESPONSE_MODELS](
+    def parse_response[T: RESPONSE_MODELS](
         self,
         response_model: type[T],
         data: dict[str, Any],

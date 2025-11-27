@@ -13,7 +13,7 @@ class ChannelPlaylistsMixin(YTDLAPIProtocol):
         update: bool = False,
     ) -> ChannelPlaylists:
         if update:
-            return self._parse_response(ChannelPlaylists, data, "channel_playlists")
+            return self.parse_response(ChannelPlaylists, data, "channel_playlists")
 
         return ChannelPlaylists.model_validate(data)
 

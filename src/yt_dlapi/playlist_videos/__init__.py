@@ -18,7 +18,7 @@ class PlaylistVideosMixin(YTDLAPIProtocol):
         update: bool = False,
     ) -> PlaylistVideos:
         if update:
-            return self._parse_response(PlaylistVideos, data, "playlist_videos")
+            return self.parse_response(PlaylistVideos, data, "playlist_videos")
 
         return PlaylistVideos.model_validate(data)
 

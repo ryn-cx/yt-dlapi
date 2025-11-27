@@ -12,7 +12,7 @@ class VideoMixin(YTDLAPIProtocol):
 
     def parse_video(self, data: dict[str, Any], *, update: bool = False) -> Video:
         if update:
-            return self._parse_response(Video, data, "video")
+            return self.parse_response(Video, data, "video")
 
         return Video.model_validate(data)
 

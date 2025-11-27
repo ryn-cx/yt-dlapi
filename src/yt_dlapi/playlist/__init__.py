@@ -12,7 +12,7 @@ class PlaylistMixin(YTDLAPIProtocol):
 
     def parse_playlist(self, data: dict[str, Any], *, update: bool = False) -> Playlist:
         if update:
-            return self._parse_response(Playlist, data, "playlist")
+            return self.parse_response(Playlist, data, "playlist")
 
         return Playlist.model_validate(data)
 
