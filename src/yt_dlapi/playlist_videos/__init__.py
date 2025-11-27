@@ -1,8 +1,7 @@
 from typing import Any
 
+from yt_dlapi.playlist_videos import models as model
 from yt_dlapi.protocol import YTDLAPIProtocol
-
-from .models import PlaylistVideos
 
 
 class PlaylistVideosMixin(YTDLAPIProtocol):
@@ -16,13 +15,13 @@ class PlaylistVideosMixin(YTDLAPIProtocol):
         data: dict[str, Any],
         *,
         update: bool = False,
-    ) -> PlaylistVideos:
+    ) -> model.PlaylistVideos:
         if update:
-            return self.parse_response(PlaylistVideos, data, "playlist_videos")
+            return self.parse_response(model.PlaylistVideos, data, "playlist_videos")
 
-        return PlaylistVideos.model_validate(data)
+        return model.PlaylistVideos.model_validate(data)
 
-    def get_playlist_videos(self, channel_name: str) -> PlaylistVideos:
+    def get_playlist_videos(self, channel_name: str) -> model.PlaylistVideos:
         data = self.download_playlist_videos(channel_name)
 
         return self.parse_playlist_videos(data, update=True)

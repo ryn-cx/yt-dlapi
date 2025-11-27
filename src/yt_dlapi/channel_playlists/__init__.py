@@ -1,8 +1,7 @@
 from typing import Any, overload
 
+from yt_dlapi.channel_playlists import models as model
 from yt_dlapi.protocol import YTDLAPIProtocol
-
-from .models import ChannelPlaylists
 
 
 class ChannelPlaylistsMixin(YTDLAPIProtocol):
@@ -11,11 +10,15 @@ class ChannelPlaylistsMixin(YTDLAPIProtocol):
         data: dict[str, Any],
         *,
         update: bool = False,
-    ) -> ChannelPlaylists:
+    ) -> model.ChannelPlaylists:
         if update:
-            return self.parse_response(ChannelPlaylists, data, "channel_playlists")
+            return self.parse_response(
+                model.ChannelPlaylists,
+                data,
+                "channel_playlists",
+            )
 
-        return ChannelPlaylists.model_validate(data)
+        return model.ChannelPlaylists.model_validate(data)
 
     @overload
     def download_channel_playlists(self, *, channel_name: str) -> dict[str, Any]: ...
@@ -40,15 +43,15 @@ class ChannelPlaylistsMixin(YTDLAPIProtocol):
         raise ValueError(msg)
 
     @overload
-    def get_channel_playlists(self, *, channel_name: str) -> ChannelPlaylists: ...
+    def get_channel_playlists(self, *, channel_name: str) -> model.ChannelPlaylists: ...
     @overload
-    def get_channel_playlists(self, *, channel_id: str) -> ChannelPlaylists: ...
+    def get_channel_playlists(self, *, channel_id: str) -> model.ChannelPlaylists: ...
     def get_channel_playlists(
         self,
         *,
         channel_id: str | None = None,
         channel_name: str | None = None,
-    ) -> ChannelPlaylists:
+    ) -> model.ChannelPlaylists:
         if channel_name and channel_id:
             msg = "Only one of channel_name or channel_id should be provided."
             raise ValueError(msg)
