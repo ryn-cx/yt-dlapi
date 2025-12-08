@@ -58,12 +58,13 @@ class Entry1(BaseModel):
     uploader_url: None = None
     thumbnails: list[Thumbnail2]
     timestamp: None = None
-    release_timestamp: None = None
+    release_timestamp: int | None = None
     availability: str | None = None
     view_count: int | None = None
     live_status: str | None = None
     channel_is_verified: bool | None = None
     field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
+    concurrent_view_count: int | None = None
 
 
 class Entry(BaseModel):

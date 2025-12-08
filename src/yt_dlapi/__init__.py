@@ -1,16 +1,9 @@
-import json
 import logging
-import uuid
 from logging import Logger
 from pathlib import Path
-from typing import Any, override
+from typing import Any
 
-from gapi import (
-    AbstractGapiClient,
-    GapiCustomizations,
-    apply_customizations,
-    update_json_schema_and_pydantic_model,
-)
+from gapi import AbstractGapiClient
 from yt_dlp import YoutubeDL
 
 from yt_dlapi.constants import YT_DLAPI_PATH
@@ -19,7 +12,6 @@ from .channel import ChannelMixin
 from .channel.models import Channel
 from .channel_playlists import ChannelPlaylistsMixin
 from .channel_playlists.models import ChannelPlaylists
-from .constants import FILES_PATH
 from .playlist import PlaylistMixin
 from .playlist.models import Playlist
 from .playlist_videos import PlaylistVideosMixin
@@ -39,11 +31,14 @@ class YTDLAPI(
     ChannelPlaylistsMixin,
     PlaylistVideosMixin,
 ):
+    def client_path(self) -> Path:
+        return YT_DLAPI_PATH
+
     def __init__(
         self,
         cookie_file: Path | None = None,
-        *,
         logger: Logger = default_logger,
+        *,
         verbose: bool = False,
     ) -> None:
         self.cookie_file = cookie_file
@@ -91,25 +86,3 @@ class YTDLAPI(
                     return ytdl.sanitize_info(raw_json)
 
             raise
-
-    @override
-    def save_file(self, name: str, data: dict[str, Any], model_type: str) -> None:
-        """Add a new test file for a given endpoint."""
-        input_folder = FILES_PATH / name
-        new_json_path = input_folder / f"{uuid.uuid4()}.json"
-        new_json_path.parent.mkdir(parents=True, exist_ok=True)
-        new_json_path.write_text(json.dumps(data, indent=2))
-
-    @override
-    def update_model(
-        self,
-        name: str,
-        model_type: str,
-        customizations: GapiCustomizations | None = None,
-    ) -> None:
-        """Update a specific response model based on input data."""
-        schema_path = YT_DLAPI_PATH / f"{name}/schema.json"
-        model_path = YT_DLAPI_PATH / f"{name}/models.py"
-        files_path = FILES_PATH / name
-        update_json_schema_and_pydantic_model(files_path, schema_path, model_path, name)
-        apply_customizations(model_path, customizations)

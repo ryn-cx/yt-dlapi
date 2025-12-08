@@ -1,7 +1,7 @@
 from typing import Any
 
 from yt_dlapi.protocol import YTDLAPIProtocol
-from yt_dlapi.video import models as model
+from yt_dlapi.video import models
 
 
 class VideoMixin(YTDLAPIProtocol):
@@ -9,13 +9,13 @@ class VideoMixin(YTDLAPIProtocol):
         url = f"https://www.youtube.com/watch?v={video_id}"
         return self._yt_dlp_request(url)
 
-    def parse_video(self, data: dict[str, Any], *, update: bool = False) -> model.Video:
+    def parse_video(self, data: dict[str, Any], *, update: bool = True) -> models.Video:
         if update:
-            return self.parse_response(model.Video, data, "video")
+            return self.parse_response(models.Video, data, "video")
 
-        return model.Video.model_validate(data)
+        return models.Video.model_validate(data)
 
-    def get_video(self, channel_name: str) -> model.Video:
-        data = self.download_video(channel_name)
+    def get_video(self, video_id: str) -> models.Video:
+        response = self.download_video(video_id)
 
-        return self.parse_video(data, update=True)
+        return self.parse_video(response)
