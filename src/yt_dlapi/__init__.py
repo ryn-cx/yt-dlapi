@@ -49,8 +49,8 @@ class YTDLAPI(
         self,
         url: str,
         *,
-        process: bool = True,
-        extract_flat: bool = True,
+        process: bool = False,
+        extract_flat: bool = False,
     ) -> dict[str, Any]:
         self.logger.info("Downloading %s", url)
 

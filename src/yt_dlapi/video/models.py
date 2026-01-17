@@ -13,16 +13,6 @@ class DownloaderOptions(BaseModel):
     http_chunk_size: int
 
 
-class HttpHeaders(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    user_agent: str = Field(..., alias="User-Agent")
-    accept: str = Field(..., alias="Accept")
-    accept_language: str = Field(..., alias="Accept-Language")
-    sec_fetch_mode: str = Field(..., alias="Sec-Fetch-Mode")
-
-
 class Format(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -47,21 +37,13 @@ class Format(BaseModel):
     ext: str
     vcodec: str
     acodec: str
-    dynamic_range: str | None = None
-    container: str | None = None
+    dynamic_range: None
     available_at: int
     downloader_options: DownloaderOptions | None = None
-    protocol: str
-    audio_ext: str
-    video_ext: str
-    vbr: float | None = None
-    abr: float | None = None
-    resolution: str
-    aspect_ratio: float | None = None
-    http_headers: HttpHeaders
-    format: str
+    container: str | None = None
     format_index: None = None
     manifest_url: str | None = None
+    protocol: str | None = None
 
 
 class Thumbnail(BaseModel):
@@ -69,11 +51,9 @@ class Thumbnail(BaseModel):
         extra="forbid",
     )
     url: str
-    preference: int
-    id: str
     height: int | None = None
     width: int | None = None
-    resolution: str | None = None
+    preference: int
 
 
 class EnItem(BaseModel):
@@ -140,7 +120,6 @@ class Chapter(BaseModel):
     )
     start_time: float
     title: str
-    end_time: float
 
 
 class HeatmapItem(BaseModel):
@@ -150,45 +129,6 @@ class HeatmapItem(BaseModel):
     start_time: float
     end_time: float
     value: float
-
-
-class RequestedFormat(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    asr: int | None = None
-    filesize: int
-    format_id: str
-    format_note: str
-    source_preference: int
-    fps: int | None = None
-    audio_channels: int | None = None
-    height: int | None = None
-    quality: float
-    has_drm: bool
-    tbr: float
-    filesize_approx: int
-    url: str
-    width: int | None = None
-    language: None
-    language_preference: int
-    preference: None
-    ext: str
-    vcodec: str
-    acodec: str
-    dynamic_range: str | None = None
-    container: str
-    available_at: int
-    downloader_options: DownloaderOptions
-    protocol: str
-    video_ext: str
-    audio_ext: str
-    abr: float
-    vbr: float
-    resolution: str
-    aspect_ratio: float | None = None
-    http_headers: HttpHeaders
-    format: str
 
 
 class FieldVersion(BaseModel):
@@ -241,43 +181,12 @@ class Video(BaseModel):
     upload_date: str
     timestamp: int
     availability: str
+    field__post_extractor: None = Field(..., alias="__post_extractor")
     original_url: str
     webpage_url_basename: str
     webpage_url_domain: str
     extractor: str
     extractor_key: str
-    playlist: None
-    playlist_index: None
-    display_id: str
-    fulltitle: str
-    duration_string: str
-    release_year: None
-    is_live: bool
-    was_live: bool
-    requested_subtitles: None
-    field_has_drm: None = Field(..., alias="_has_drm")
     epoch: int
-    requested_formats: list[RequestedFormat]
-    format: str
-    format_id: str
-    ext: str
-    protocol: str
-    language: None
-    format_note: str
-    filesize_approx: int
-    tbr: float
-    width: int
-    height: int
-    resolution: str
-    fps: int
-    dynamic_range: str
-    vcodec: str
-    vbr: float
-    stretched_ratio: None
-    aspect_ratio: float
-    acodec: str
-    abr: float
-    asr: int
-    audio_channels: int
     field_type: str = Field(..., alias="_type")
     field_version: FieldVersion = Field(..., alias="_version")

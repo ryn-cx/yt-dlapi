@@ -7,8 +7,8 @@ from yt_dlapi.protocol import YTDLAPIProtocol
 class PlaylistVideosMixin(YTDLAPIProtocol):
     def download_playlist_videos(self, playlist_id: str) -> dict[str, Any]:
         url = f"https://www.youtube.com/playlist?list={playlist_id}"
-        # Need to get the episodes of the playlist so process must be False.
-        return self._yt_dlp_request(url)
+        # Need to get the episodes of the playlist so process must be True.
+        return self._yt_dlp_request(url, process=True, extract_flat=True)
 
     def parse_playlist_videos(
         self,

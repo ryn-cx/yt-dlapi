@@ -36,19 +36,19 @@ class Entry(BaseModel):
     url: str
     title: str
     description: None
-    duration: int | None = None
-    channel_id: str | None = None
+    duration: int
+    channel_id: str
     channel: str
-    channel_url: str | None = None
+    channel_url: str
     uploader: str
-    uploader_id: str | None = None
-    uploader_url: str | None = None
+    uploader_id: str
+    uploader_url: str
     thumbnails: list[Thumbnail1]
     timestamp: None
     release_timestamp: None
     availability: None
     view_count: int
-    live_status: str | None = None
+    live_status: None
     channel_is_verified: None
     field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
 
@@ -72,7 +72,7 @@ class PlaylistVideos(BaseModel):
     availability: None
     channel_follower_count: None
     description: str
-    tags: list[None]
+    tags: list
     thumbnails: list[Thumbnail]
     modified_date: str
     view_count: int
