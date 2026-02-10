@@ -1,9 +1,11 @@
-from yt_dlapi import YTDLAPI
+import logging
+
+from yt_dlapi import response_models
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
-    client = YTDLAPI()
-    client.rebuild_models("channel")
-    client.rebuild_models("channel_playlists")
-    client.rebuild_models("playlist")
-    client.rebuild_models("playlist_videos")
-    client.rebuild_models("video")
+    for response_model in response_models():
+        logger.info("Rebuilding models: %s", response_model.__class__.__name__)
+        response_model.rebuild_models()

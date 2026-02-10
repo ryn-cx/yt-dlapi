@@ -1,84 +1,79 @@
-import json
-from collections.abc import Iterator
-from pathlib import Path
+"""Tests for the yt_dlapi library."""
 
-import pytest
+import json
 
 from yt_dlapi import YTDLAPI
-from yt_dlapi.constants import FILES_PATH
 
 client = YTDLAPI()
 
 
 class TestParsing:
-    def get_test_files(self, endpoint: str) -> Iterator[Path]:
-        """Get all JSON test files for a given endpoint."""
-        dir_path = FILES_PATH / endpoint
-        if not dir_path.exists():
-            pytest.fail(f"{dir_path} not found")
-
-        files = dir_path.glob("*.json")
-
-        # Make sure at least 1 file is found
-        if not any(files):
-            pytest.fail(f"No test files found in {dir_path}")
-
-        return files
+    """Tests for parsing saved JSON files into Pydantic models."""
 
     def test_parse_channel(self) -> None:
-        for json_file in self.get_test_files("channel"):
+        """Parse all saved channel JSON files."""
+        for json_file in client.channel.json_files_folder.glob("*.json"):
             file_content = json.loads(json_file.read_text())
-            parsed = client.parse_channel(file_content)
-            assert file_content == client.dump_response(parsed)
+            client.channel.parse(file_content)
 
     def test_parse_playlist(self) -> None:
-        for json_file in self.get_test_files("playlist"):
+        """Parse all saved playlist JSON files."""
+        for json_file in client.playlist.json_files_folder.glob("*.json"):
             file_content = json.loads(json_file.read_text())
-            parsed = client.parse_playlist(file_content)
-            assert file_content == client.dump_response(parsed)
+            client.playlist.parse(file_content)
 
     def test_parse_video(self) -> None:
-        for json_file in self.get_test_files("video"):
+        """Parse all saved video JSON files."""
+        for json_file in client.video.json_files_folder.glob("*.json"):
             file_content = json.loads(json_file.read_text())
-            parsed = client.parse_video(file_content)
-            assert file_content == client.dump_response(parsed)
+            client.video.parse(file_content)
 
     def test_parse_channel_playlists(self) -> None:
-        for json_file in self.get_test_files("channel_playlists"):
+        """Parse all saved channel playlists JSON files."""
+        for json_file in client.channel_playlists.json_files_folder.glob("*.json"):
             file_content = json.loads(json_file.read_text())
-            parsed = client.parse_channel_playlists(file_content)
-            assert file_content == client.dump_response(parsed)
+            client.channel_playlists.parse(file_content)
 
     def test_parse_playlist_videos(self) -> None:
-        for json_file in self.get_test_files("playlist_videos"):
+        """Parse all saved playlist videos JSON files."""
+        for json_file in client.playlist_videos.json_files_folder.glob("*.json"):
             file_content = json.loads(json_file.read_text())
-            parsed = client.parse_playlist_videos(file_content)
-            assert file_content == client.dump_response(parsed)
+            client.playlist_videos.parse(file_content)
 
 
 class TestGet:
+    """Tests for downloading and parsing live data from YouTube."""
+
     def test_get_channel_using_channel_name(self) -> None:
-        client.get_channel(channel_name="jawed")
+        """Download and parse a channel by name."""
+        client.channel.get(channel_name="jawed")
 
     def test_get_channel_using_channel_id(self) -> None:
-        client.get_channel(channel_id="UC4QobU6STFB0P71PMvOGN5A")
+        """Download and parse a channel by ID."""
+        client.channel.get(channel_id="UC4QobU6STFB0P71PMvOGN5A")
 
     def test_get_playlist(self) -> None:
-        client.get_playlist("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
+        """Download and parse a playlist."""
+        client.playlist.get("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
 
     def test_get_video(self) -> None:
-        client.get_video("jNQXAC9IVRw")
+        """Download and parse a video."""
+        client.video.get("jNQXAC9IVRw")
 
     def test_channel_playlists_using_channel_name(self) -> None:
-        client.get_channel_playlists(channel_name="jawed")
+        """Download and parse channel playlists by channel name."""
+        client.channel_playlists.get(channel_name="jawed")
 
     def test_channel_playlists_using_channel_id(self) -> None:
-        client.get_channel_playlists(channel_id="UC4QobU6STFB0P71PMvOGN5A")
+        """Download and parse channel playlists by channel ID."""
+        client.channel_playlists.get(channel_id="UC4QobU6STFB0P71PMvOGN5A")
 
     def test_get_playlist_videos_using_playlist_id(self) -> None:
-        client.get_playlist_videos("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
+        """Download and parse playlist videos by playlist ID."""
+        client.playlist_videos.get("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
 
     def test_get_playlist_videos_using_channel_id(self) -> None:
+        """Download and parse playlist videos using a channel-derived playlist ID."""
         # Not really the channel id because it was modified to be a playlist id from the
         # channel id.
-        client.get_playlist_videos("UU4QobU6STFB0P71PMvOGN5A")
+        client.playlist_videos.get("UU4QobU6STFB0P71PMvOGN5A")
