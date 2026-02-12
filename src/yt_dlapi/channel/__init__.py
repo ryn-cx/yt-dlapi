@@ -15,7 +15,6 @@ class Channel(BaseEndpoint[ChannelModel]):
     @cached_property
     @override
     def _response_model(self) -> type[ChannelModel]:
-        """Return the Pydantic model class for this client."""
         return ChannelModel
 
     def download_by_name(self, channel_name: str) -> dict[str, Any]:

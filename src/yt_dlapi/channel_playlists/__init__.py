@@ -15,7 +15,6 @@ class ChannelPlaylists(BaseEndpoint[models.ChannelPlaylists]):
     @cached_property
     @override
     def _response_model(self) -> type[models.ChannelPlaylists]:
-        """Return the Pydantic model class for this client."""
         return models.ChannelPlaylists
 
     def download_by_name(self, channel_name: str) -> dict[str, Any]:
