@@ -27,7 +27,7 @@ class BaseExtractor[T: BaseModel](GAPIClient[T]):
 
     @cached_property
     def json_files_folder(self) -> Path:
-        """Model-specific subdirectory under ``_root_files_path``."""
+        """Wrapper for tests."""
         return self._json_files_folder
 
 
