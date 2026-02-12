@@ -3,7 +3,6 @@
 import logging
 from datetime import datetime
 from logging import Logger
-from pathlib import Path
 from typing import Any
 
 from yt_dlp import YoutubeDL
@@ -19,7 +18,7 @@ default_logger = logging.getLogger(__name__)
 
 
 def response_models() -> list[BaseExtractor[Any]]:
-    """Returns a list of all response model extractors."""
+    """Returns a list of all of the response models for YTDLAPI."""
     ytdlapi = YTDLAPI()
 
     return [
@@ -34,16 +33,8 @@ def response_models() -> list[BaseExtractor[Any]]:
 class YTDLAPI:
     """Interface for downloading and parsing data from YouTube."""
 
-    def __init__(
-        self,
-        cookie_file: Path | None = None,
-        logger: Logger = default_logger,
-        *,
-        verbose: bool = False,
-    ) -> None:
+    def __init__(self, logger: Logger = default_logger) -> None:
         """Initialize the YTDLAPI client."""
-        self.cookie_file = cookie_file
-        self.verbose = verbose
         self.logger = logger
 
         self.channel = Channel(self)
@@ -68,7 +59,7 @@ class YTDLAPI:
         # when downloading something like a playlist only basic information about the
         # episodes will be downloaded, when False full information about each episode
         # will be downloaded.
-        params = {"extract_flat": extract_flat, "verbose": self.verbose}
+        params = {"extract_flat": extract_flat}
 
         # params.copy() is required because YoutubeDL will modify params
         with YoutubeDL(params.copy()) as ytdl:

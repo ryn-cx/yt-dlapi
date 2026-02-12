@@ -46,11 +46,11 @@ class TestGet:
 
     def test_get_channel_using_channel_name(self) -> None:
         """Download and parse a channel by name."""
-        client.channel.get(channel_name="jawed")
+        client.channel.get_by_name("jawed")
 
     def test_get_channel_using_channel_id(self) -> None:
         """Download and parse a channel by ID."""
-        client.channel.get(channel_id="UC4QobU6STFB0P71PMvOGN5A")
+        client.channel.get_by_id("UC4QobU6STFB0P71PMvOGN5A")
 
     def test_get_playlist(self) -> None:
         """Download and parse a playlist."""
@@ -62,11 +62,11 @@ class TestGet:
 
     def test_channel_playlists_using_channel_name(self) -> None:
         """Download and parse channel playlists by channel name."""
-        client.channel_playlists.get(channel_name="jawed")
+        client.channel_playlists.get_by_name("jawed")
 
     def test_channel_playlists_using_channel_id(self) -> None:
         """Download and parse channel playlists by channel ID."""
-        client.channel_playlists.get(channel_id="UC4QobU6STFB0P71PMvOGN5A")
+        client.channel_playlists.get_by_id("UC4QobU6STFB0P71PMvOGN5A")
 
     def test_get_playlist_videos_using_playlist_id(self) -> None:
         """Download and parse playlist videos by playlist ID."""

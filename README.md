@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📺 YT-DLAPI
+# YT-DLAPI
 
 ![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https://raw.githubusercontent.com/ryn-cx/yt-dlapi/refs/heads/master/pyproject.toml)
 ![GitHub License](https://img.shields.io/github/license/ryn-cx/yt-dlapi)
@@ -10,49 +10,68 @@
 
 </div>
 
-## ✨ Features
+## Features
 
-- 🎥 **Video, Channel & Playlist Support**: Extract detailed metadata and information from videos, channels, and playlists
-- 🔄 **Dynamic Models**: Automatically updating Pydantic models based on API responses
-- 🍪 **Cookie Support**: Optional cookie file support for age-restricted content
-- 🛡️ **Type Safety**: Full Pydantic models for robust data validation
+- **Video, Channel & Playlist Support** - Extract detailed metadata from videos, channels, and playlists
+- **Type Safety** - Full Pydantic models for every endpoint with robust data validation
+- **Self-Updating Models** - Models are automatically updated when the API response structure changes
 
-## 📦 Installation
+## Installation
 
-### Requirements
-
-- 🐍 Python 3.13 or higher
-
-### Install from source
+Requires Python 3.13+
 
 ```bash
 uv add git+https://github.com/ryn-cx/yt-dlapi
 ```
 
-## 🚀 Quick Start
-
-### Create Client
+## Quick Start
 
 ```python
 from yt_dlapi import YTDLAPI
-from pathlib import Path
 
-# 🌐 Create client without cookies
 client = YTDLAPI()
-
-# 🍪 Create client with cookie file for age-restricted content
-client = YTDLAPI(cookie_file=Path("cookies.txt"))
 ```
 
-### Access API
+### Video
 
 ```python
-# 🎬 Get video information
-video_info = client.get_video("VIDEO_ID")
+video = client.video.get("jNQXAC9IVRw")
+```
 
-# 📺 Get channel information
-channel_info = client.get_channel("CHANNEL_ID")
+### Channel
 
-# 📋 Get playlist information
-playlist_info = client.get_playlist("PLAYLIST_ID")
+```python
+channel = client.channel.get_by_name("jawed")
+channel = client.channel.get_by_id("UC4QobU6STFB0P71PMvOGN5A")
+```
+
+### Playlist
+
+```python
+playlist = client.playlist.get("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
+```
+
+### Channel Playlists
+
+```python
+playlists = client.channel_playlists.get_by_name("jawed")
+playlists = client.channel_playlists.get_by_id("UC4QobU6STFB0P71PMvOGN5A")
+```
+
+### Playlist Videos
+
+```python
+videos = client.playlist_videos.get("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
+```
+
+## Two-Step API
+
+Every endpoint supports a two-step `download()` / `parse()` workflow for cases where you want to inspect or cache the raw JSON before parsing:
+
+```python
+raw = client.video.download("jNQXAC9IVRw")
+parsed = client.video.parse(raw)
+
+raw = client.channel.download_by_name("jawed")
+parsed = client.channel.parse(raw)
 ```

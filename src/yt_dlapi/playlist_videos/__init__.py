@@ -35,26 +35,6 @@ class PlaylistVideos(BaseEndpoint[models.PlaylistVideos]):
             extract_flat=True,
         )
 
-    def parse(
-        self,
-        data: dict[str, Any],
-        *,
-        update: bool = True,
-    ) -> models.PlaylistVideos:
-        """Parses playlist videos data into a PlaylistVideos model.
-
-        Args:
-            data: The playlist videos data to parse.
-            update: Whether to update models if parsing fails.
-
-        Returns:
-            A PlaylistVideos model containing the parsed data.
-        """
-        if update:
-            return self._parse_response(data)
-
-        return models.PlaylistVideos.model_validate(data)
-
     def get(self, playlist_id: str) -> models.PlaylistVideos:
         """Downloads and parses playlist videos data for a given playlist ID.
 

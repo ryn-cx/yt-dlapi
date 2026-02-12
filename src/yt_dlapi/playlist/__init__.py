@@ -30,26 +30,6 @@ class Playlist(BaseEndpoint[models.Playlist]):
         url = f"https://www.youtube.com/playlist?list={playlist_id}"
         return self._client.download_yt_dlp_request(url)
 
-    def parse(
-        self,
-        data: dict[str, Any],
-        *,
-        update: bool = True,
-    ) -> models.Playlist:
-        """Parses playlist data into a Playlist model.
-
-        Args:
-            data: The playlist data to parse.
-            update: Whether to update models if parsing fails.
-
-        Returns:
-            A Playlist model containing the parsed data.
-        """
-        if update:
-            return self._parse_response(data)
-
-        return models.Playlist.model_validate(data)
-
     def get(self, playlist_id: str) -> models.Playlist:
         """Downloads and parses playlist data for a given playlist ID.
 

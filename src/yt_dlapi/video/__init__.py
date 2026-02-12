@@ -30,26 +30,6 @@ class Video(BaseEndpoint[models.Video]):
         url = f"https://www.youtube.com/watch?v={video_id}"
         return self._client.download_yt_dlp_request(url)
 
-    def parse(
-        self,
-        data: dict[str, Any],
-        *,
-        update: bool = True,
-    ) -> models.Video:
-        """Parses video data into a Video model.
-
-        Args:
-            data: The video data to parse.
-            update: Whether to update models if parsing fails.
-
-        Returns:
-            A Video model containing the parsed data.
-        """
-        if update:
-            return self._parse_response(data)
-
-        return models.Video.model_validate(data)
-
     def get(self, video_id: str) -> models.Video:
         """Downloads and parses video data for a given video ID.
 
