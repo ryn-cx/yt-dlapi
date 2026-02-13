@@ -56,14 +56,12 @@ class FieldVersion(BaseModel):
 class Params(BaseModel):
     model_config = ConfigDict(extra="forbid")
     extract_flat: bool
-    verbose: bool | None = None
-    true: bool | None = None
-    process: bool | None = None
+    process: bool
 
 
 class YtDlapi(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    date: AwareDatetime
+    timestamp: AwareDatetime
     url: str
     params: Params
 

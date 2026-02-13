@@ -68,7 +68,9 @@ class YTDLAPI:
             raw_json = ytdl.extract_info(url, download=False, process=process)
             output = ytdl.sanitize_info(raw_json)
             output["yt_dlapi"] = {}
-            output["yt_dlapi"]["date"] = datetime.now().astimezone().isoformat()
+            output["yt_dlapi"]["timestamp"] = (
+                datetime.now().astimezone().isoformat().replace("+00:00", "Z")
+            )
             output["yt_dlapi"]["url"] = url
             params["process"] = process
             output["yt_dlapi"]["params"] = params

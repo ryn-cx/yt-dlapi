@@ -29,7 +29,7 @@ class Params(BaseModel):
 
 class YtDlapi(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    date: AwareDatetime
+    timestamp: AwareDatetime
     url: str
     params: Params
 
