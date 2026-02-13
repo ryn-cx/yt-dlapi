@@ -128,7 +128,7 @@ class YtDlapi(BaseModel):
     params: Params
 
 
-class Video(BaseModel):
+class VideoModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
     title: str

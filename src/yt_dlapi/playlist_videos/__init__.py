@@ -6,16 +6,16 @@ from functools import cached_property
 from typing import Any, override
 
 from yt_dlapi.base_api_endpoint import BaseEndpoint
-from yt_dlapi.playlist_videos import models
+from yt_dlapi.playlist_videos.models import PlaylistVideosModel
 
 
-class PlaylistVideos(BaseEndpoint[models.PlaylistVideos]):
+class PlaylistVideos(BaseEndpoint[PlaylistVideosModel]):
     """Provides methods to download, parse, and retrieve playlist videos data."""
 
     @cached_property
     @override
-    def _response_model(self) -> type[models.PlaylistVideos]:
-        return models.PlaylistVideos
+    def _response_model(self) -> type[PlaylistVideosModel]:
+        return PlaylistVideosModel
 
     def download(self, playlist_id: str) -> dict[str, Any]:
         """Downloads playlist videos data for a given playlist ID.
@@ -34,7 +34,7 @@ class PlaylistVideos(BaseEndpoint[models.PlaylistVideos]):
             extract_flat=True,
         )
 
-    def get(self, playlist_id: str) -> models.PlaylistVideos:
+    def get(self, playlist_id: str) -> PlaylistVideosModel:
         """Downloads and parses playlist videos data for a given playlist ID.
 
         Convenience method that calls ``download()`` then ``parse()``.

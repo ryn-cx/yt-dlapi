@@ -55,7 +55,7 @@ class YtDlapi(BaseModel):
     params: Params
 
 
-class ChannelPlaylists(BaseModel):
+class ChannelPlaylistsModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
     channel: str

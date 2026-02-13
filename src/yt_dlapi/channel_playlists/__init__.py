@@ -6,16 +6,16 @@ from functools import cached_property
 from typing import Any, override
 
 from yt_dlapi.base_api_endpoint import BaseEndpoint
-from yt_dlapi.channel_playlists import models
+from yt_dlapi.channel_playlists.models import ChannelPlaylistsModel
 
 
-class ChannelPlaylists(BaseEndpoint[models.ChannelPlaylists]):
+class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
     """Provides methods to download, parse, and retrieve channel playlists data."""
 
     @cached_property
     @override
-    def _response_model(self) -> type[models.ChannelPlaylists]:
-        return models.ChannelPlaylists
+    def _response_model(self) -> type[ChannelPlaylistsModel]:
+        return ChannelPlaylistsModel
 
     def download_by_name(self, channel_name: str) -> dict[str, Any]:
         """Downloads channel playlists data for a given channel name.
@@ -49,7 +49,7 @@ class ChannelPlaylists(BaseEndpoint[models.ChannelPlaylists]):
             extract_flat=True,
         )
 
-    def get_by_name(self, channel_name: str) -> models.ChannelPlaylists:
+    def get_by_name(self, channel_name: str) -> ChannelPlaylistsModel:
         """Downloads and parses channel playlists data for a given channel name.
 
         Convenience method that calls ``download_by_name()`` then ``parse()``.
@@ -62,7 +62,7 @@ class ChannelPlaylists(BaseEndpoint[models.ChannelPlaylists]):
         """
         return self.parse(self.download_by_name(channel_name))
 
-    def get_by_id(self, channel_id: str) -> models.ChannelPlaylists:
+    def get_by_id(self, channel_id: str) -> ChannelPlaylistsModel:
         """Downloads and parses channel playlists data for a given channel ID.
 
         Convenience method that calls ``download_by_id()`` then ``parse()``.

@@ -32,7 +32,7 @@ class YtDlapi(BaseModel):
     params: Params
 
 
-class Playlist(BaseModel):
+class PlaylistModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
     title: str
