@@ -100,7 +100,7 @@ wheels = [
 [[package]]
 name = "good-ass-pydantic-integrator"
 version = "0.0.1"
-source = { git = "https://github.com/ryn-cx/good-ass-pydantic-integrator#47a2a607ecbe397f1aa4f73a87d9d2c64e71cf18" }
+source = { git = "https://github.com/ryn-cx/good-ass-pydantic-integrator#186057b53426189512698ec3303b0f8b557848fb" }
 dependencies = [
     { name = "datamodel-code-generator" },
     { name = "degenson" },
