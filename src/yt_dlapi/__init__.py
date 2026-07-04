@@ -8,6 +8,7 @@ from yt_dlp import YoutubeDL
 
 from yt_dlapi.channel import Channel
 from yt_dlapi.channel_playlists import ChannelPlaylists
+from yt_dlapi.channel_releases import ChannelReleases
 from yt_dlapi.playlist import Playlist
 from yt_dlapi.playlist_videos import PlaylistVideos
 from yt_dlapi.video import Video
@@ -23,6 +24,7 @@ class YTDLAPI:
         """Initialize the YTDLAPI client."""
         self.channel = Channel(self)
         self.channel_playlists = ChannelPlaylists(self)
+        self.channel_releases = ChannelReleases(self)
         self.playlist = Playlist(self)
         self.playlist_videos = PlaylistVideos(self)
         self.video = Video(self)
