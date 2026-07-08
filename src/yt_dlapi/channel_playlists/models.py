@@ -1,10 +1,9 @@
-# ruff: noqa: D100, D101
-from __future__ import annotations
+# ruff: noqa: D100, D101, D102, TC001, TC002, TC003
+from good_ass_pydantic_integrator import GAPIBaseModel
+from pydantic import AwareDatetime, ConfigDict, Field
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
 
-
-class Thumbnail(BaseModel):
+class Thumbnail(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     url: str
     height: int | None = None
@@ -14,14 +13,14 @@ class Thumbnail(BaseModel):
     resolution: str | None = None
 
 
-class Thumbnail1(BaseModel):
+class Thumbnail1(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     url: str
     height: int
     width: int
 
 
-class Entry(BaseModel):
+class Entry(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     title: str
     thumbnails: list[Thumbnail1]
@@ -34,7 +33,7 @@ class Entry(BaseModel):
     field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
 
 
-class FieldVersion(BaseModel):
+class FieldVersion(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     version: str
     current_git_head: None
@@ -42,20 +41,20 @@ class FieldVersion(BaseModel):
     repository: str
 
 
-class Params(BaseModel):
+class Params(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     extract_flat: bool
     process: bool
 
 
-class YtDlapi(BaseModel):
+class YtDlapi(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     timestamp: AwareDatetime
     url: str
     params: Params
 
 
-class ChannelPlaylistsModel(BaseModel):
+class ChannelPlaylistsModel(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
     channel: str

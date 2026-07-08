@@ -1,20 +1,19 @@
-# ruff: noqa: D100, D101
-from __future__ import annotations
-
+# ruff: noqa: D100, D101, D102, TC001, TC002, TC003
 from typing import Any
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
+from good_ass_pydantic_integrator import GAPIBaseModel
+from pydantic import AwareDatetime, ConfigDict, Field
 
 
-class DownloaderOptions(BaseModel):
+class DownloaderOptions(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     http_chunk_size: int
 
 
-class Format(BaseModel):
+class Format(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     asr: int | None
-    filesize: int
+    filesize: int | None
     format_id: str
     format_note: str
     source_preference: int
@@ -39,7 +38,7 @@ class Format(BaseModel):
     container: str | None = None
 
 
-class Thumbnail(BaseModel):
+class Thumbnail(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     url: str
     height: int | None = None
@@ -47,7 +46,7 @@ class Thumbnail(BaseModel):
     preference: int
 
 
-class EnItem(BaseModel):
+class EnItem(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     ext: str
     url: str
@@ -56,7 +55,7 @@ class EnItem(BaseModel):
     field__yt_dlp_client: str = Field(..., alias="__yt_dlp_client")
 
 
-class DeItem(BaseModel):
+class DeItem(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     ext: str
     url: str
@@ -65,26 +64,26 @@ class DeItem(BaseModel):
     field__yt_dlp_client: str = Field(..., alias="__yt_dlp_client")
 
 
-class Subtitles(BaseModel):
+class Subtitles(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     en: list[EnItem]
     de: list[DeItem]
 
 
-class Chapter(BaseModel):
+class Chapter(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     start_time: float
     title: str
 
 
-class HeatmapItem(BaseModel):
+class HeatmapItem(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     start_time: float
     end_time: float
     value: float
 
 
-class FieldVersion(BaseModel):
+class FieldVersion(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     version: str
     current_git_head: None
@@ -92,20 +91,20 @@ class FieldVersion(BaseModel):
     repository: str
 
 
-class Params(BaseModel):
+class Params(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     extract_flat: bool
     process: bool
 
 
-class YtDlapi(BaseModel):
+class YtDlapi(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     timestamp: AwareDatetime
     url: str
     params: Params
 
 
-class VideoModel(BaseModel):
+class VideoModel(GAPIBaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
     title: str
