@@ -24,54 +24,54 @@ class TestGet:
     def test_get_channel_by_name(self) -> None:
         """Download, parse, and save a channel by name."""
         model = client.channel.get_by_name("jawed")
-        client.channel.save_new_json_file(client.channel.dump(model))
+        client.channel.save_new_json_file(client.channel.original_input(model))
 
     def test_get_channel_by_id(self) -> None:
         """Download, parse, and save a channel by ID."""
         model = client.channel.get_by_id("UC4QobU6STFB0P71PMvOGN5A")
-        client.channel.save_new_json_file(client.channel.dump(model))
+        client.channel.save_new_json_file(client.channel.original_input(model))
 
     def test_get_channel_playlists_by_name(self) -> None:
         """Download, parse, and save channel playlists by channel name."""
         model = client.channel_playlists.get_by_name("jawed")
         client.channel_playlists.save_new_json_file(
-            client.channel_playlists.dump(model),
+            client.channel_playlists.original_input(model),
         )
 
     def test_get_channel_playlists_by_id(self) -> None:
         """Download, parse, and save channel playlists by channel ID."""
         model = client.channel_playlists.get_by_id("UC4QobU6STFB0P71PMvOGN5A")
         client.channel_playlists.save_new_json_file(
-            client.channel_playlists.dump(model),
+            client.channel_playlists.original_input(model),
         )
 
     def test_get_channel_releases_by_name(self) -> None:
         """Download, parse, and save channel releases by channel name."""
         model = client.channel_releases.get_by_name("@kendricklamar")
         client.channel_releases.save_new_json_file(
-            client.channel_releases.dump(model),
+            client.channel_releases.original_input(model),
         )
         assert len(model.entries) >= MINIMUM_RELEASE_COUNT
 
     def test_get_playlist(self) -> None:
         """Download, parse, and save a playlist."""
         model = client.playlist.get("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
-        client.playlist.save_new_json_file(client.playlist.dump(model))
+        client.playlist.save_new_json_file(client.playlist.original_input(model))
 
     def test_get_playlist_videos(self) -> None:
         """Download, parse, and save playlist videos by playlist ID."""
         model = client.playlist_videos.get("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
-        client.playlist_videos.save_new_json_file(client.playlist_videos.dump(model))
+        client.playlist_videos.save_new_json_file(client.playlist_videos.original_input(model))
 
     def test_get_playlist_videos_by_channel_playlist_id(self) -> None:
         """Download, parse, and save playlist videos by a channel-derived ID."""
         model = client.playlist_videos.get("UU4QobU6STFB0P71PMvOGN5A")
-        client.playlist_videos.save_new_json_file(client.playlist_videos.dump(model))
+        client.playlist_videos.save_new_json_file(client.playlist_videos.original_input(model))
 
     def test_get_video(self) -> None:
         """Download, parse, and save a video."""
         model = client.video.get("jNQXAC9IVRw")
-        client.video.save_new_json_file(client.video.dump(model))
+        client.video.save_new_json_file(client.video.original_input(model))
 
 
 class TestInvalidGet:
