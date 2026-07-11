@@ -6,6 +6,8 @@ from __future__ import annotations
 from typing import Any
 
 from yt_dlapi.base_api_endpoint import BaseEndpoint
+from yt_dlapi.channel_playlists.albums import Album, ChannelAlbums
+from yt_dlapi.channel_playlists.models import ChannelPlaylistsModel
 from yt_dlapi.channel_playlists.zzz_album_scraper import (
     browse_url,
     continuation_payload,
@@ -16,8 +18,6 @@ from yt_dlapi.channel_playlists.zzz_album_scraper import (
     find_album_continuation_token,
     find_continuation_token,
 )
-from yt_dlapi.channel_playlists.albums import Album, ChannelAlbums
-from yt_dlapi.channel_playlists.models import ChannelPlaylistsModel
 
 # Safety cap on continuation pages, to avoid looping forever on a malformed token.
 _MAX_CONTINUATION_PAGES = 50
