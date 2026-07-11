@@ -38,4 +38,4 @@ class Playlist(BaseEndpoint[PlaylistModel]):
             A Playlist model containing the parsed data.
         """
         response = self.download(playlist_id)
-        return self.parse(response)
+        return self._parse_or_raise(response)

@@ -28,6 +28,11 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
 
     _response_model = ChannelPlaylistsModel
 
+    @staticmethod
+    def has_content(response: dict[str, Any]) -> bool:
+        """Return whether the playlists tab lists at least one playlist."""
+        return bool(response.get("entries"))
+
     def download_by_name(self, channel_name: str) -> dict[str, Any]:
         """Downloads channel playlists data for a given channel name.
 
@@ -70,8 +75,12 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
 
         Returns:
             A ChannelPlaylists model containing the parsed data.
+
+        Raises:
+            NoContentError: If the playlists tab lists nothing. The raw response
+                is available on the exception's ``response`` attribute.
         """
-        return self.parse(self.download_by_name(channel_name))
+        return self._parse_or_raise(self.download_by_name(channel_name))
 
     def get_by_id(self, channel_id: str) -> ChannelPlaylistsModel:
         """Downloads and parses channel playlists data for a given channel ID.
@@ -83,8 +92,12 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
 
         Returns:
             A ChannelPlaylists model containing the parsed data.
+
+        Raises:
+            NoContentError: If the playlists tab lists nothing. The raw response
+                is available on the exception's ``response`` attribute.
         """
-        return self.parse(self.download_by_id(channel_id))
+        return self._parse_or_raise(self.download_by_id(channel_id))
 
     def download_albums_by_id(self, channel_id: str) -> str:
         """Downloads the home page HTML for a channel by ID.

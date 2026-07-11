@@ -19,6 +19,11 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
 
     _response_model = ChannelReleasesModel
 
+    @staticmethod
+    def has_content(response: dict[str, Any]) -> bool:
+        """Return whether the releases tab lists at least one release."""
+        return bool(response.get("entries"))
+
     def download_by_name(self, channel_name: str) -> dict[str, Any]:
         """Downloads channel releases data for a given channel name.
 
@@ -61,8 +66,12 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
 
         Returns:
             A ChannelReleases model containing the parsed data.
+
+        Raises:
+            NoContentError: If the releases tab lists nothing. The raw response
+                is available on the exception's ``response`` attribute.
         """
-        return self.parse(self.download_by_name(channel_name))
+        return self._parse_or_raise(self.download_by_name(channel_name))
 
     def get_by_id(self, channel_id: str) -> ChannelReleasesModel:
         """Downloads and parses channel releases data for a given channel ID.
@@ -74,5 +83,9 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
 
         Returns:
             A ChannelReleases model containing the parsed data.
+
+        Raises:
+            NoContentError: If the releases tab lists nothing. The raw response
+                is available on the exception's ``response`` attribute.
         """
-        return self.parse(self.download_by_id(channel_id))
+        return self._parse_or_raise(self.download_by_id(channel_id))

@@ -1,158 +1,187 @@
 # TODO: Validate
-"""Tests for the yt_dlapi library."""
+from __future__ import annotations
 
 import json
+from typing import Any
 
 import pytest
 from yt_dlp.utils import DownloadError
 
 from yt_dlapi import YTDLAPI
+from yt_dlapi.exceptions import NoContentError
 
 client = YTDLAPI()
 
-MINIMUM_ALBUM_COUNT = 2
+CHANNEL_NAME = "jawed"
+"""A channel name."""
+CHANNEL_ID = "UC4QobU6STFB0P71PMvOGN5A"
+"""channel_id of the jawed channel."""
+RELEASES_CHANNEL_NAME = "@kendricklamar"
+"""channel name of a channel with a releases tab."""
+PLAYLIST_ID = "PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh"
+"""playlist_id for Jawed's playlist."""
+CHANNEL_UPLOADS_PLAYLIST_ID = "UU4QobU6STFB0P71PMvOGN5A"
+"""playlist_id for uploads by jawed."""
+VIDEO_ID = "jNQXAC9IVRw"
+"""video id of me at the zoo."""
+TOPIC_ID = "UCo1DYcm1IZ9v3UPkpiAcgtg"
+"""channel_id for the Tyler, the Creator - Topic channel."""
+INVALID_CHANNEL_NAME = "channel"
+INVALID_CHANNEL_ID = "UC1234567890123456789012"
+INVALID_PLAYLIST_ID = "PL12345678901234567890123456789012"
+INVALID_VIDEO_ID = "12345678901"
 MINIMUM_RELEASE_COUNT = 2
+MINIMUM_ALBUM_COUNT = 2
 
 
 class TestGet:
-    """Test live get requests across every endpoint.
-
-    Every test fetches and validates a real response, then saves it back into the
-    model's ``_files/`` corpus so real responses feed future model rebuilds.
-    """
-
     def test_get_channel_by_name(self) -> None:
-        """Download, parse, and save a channel by name."""
-        model = client.channel.get_by_name("jawed")
-        client.channel.save_new_json_file(client.channel.original_input(model))
+        endpoint = client.channel
+        model = endpoint.get_by_name(CHANNEL_NAME)
+        assert model.channel == CHANNEL_NAME
+        endpoint.save_new_json_file(endpoint.original_input(model))
 
     def test_get_channel_by_id(self) -> None:
-        """Download, parse, and save a channel by ID."""
-        model = client.channel.get_by_id("UC4QobU6STFB0P71PMvOGN5A")
-        client.channel.save_new_json_file(client.channel.original_input(model))
+        endpoint = client.channel
+        model = endpoint.get_by_id(CHANNEL_ID)
+        assert model.channel_id == CHANNEL_ID
+        endpoint.save_new_json_file(endpoint.original_input(model))
 
     def test_get_channel_playlists_by_name(self) -> None:
-        """Download, parse, and save channel playlists by channel name."""
-        model = client.channel_playlists.get_by_name("jawed")
-        client.channel_playlists.save_new_json_file(
-            client.channel_playlists.original_input(model),
-        )
+        endpoint = client.channel_playlists
+        model = endpoint.get_by_name(CHANNEL_NAME)
+        assert model.channel == CHANNEL_NAME
+        endpoint.save_new_json_file(endpoint.original_input(model))
 
     def test_get_channel_playlists_by_id(self) -> None:
-        """Download, parse, and save channel playlists by channel ID."""
-        model = client.channel_playlists.get_by_id("UC4QobU6STFB0P71PMvOGN5A")
-        client.channel_playlists.save_new_json_file(
-            client.channel_playlists.original_input(model),
-        )
+        endpoint = client.channel_playlists
+        model = endpoint.get_by_id(CHANNEL_ID)
+        assert model.channel_id == CHANNEL_ID
+        endpoint.save_new_json_file(endpoint.original_input(model))
 
     def test_get_channel_releases_by_name(self) -> None:
-        """Download, parse, and save channel releases by channel name."""
-        model = client.channel_releases.get_by_name("@kendricklamar")
-        client.channel_releases.save_new_json_file(
-            client.channel_releases.original_input(model),
-        )
+        endpoint = client.channel_releases
+        model = endpoint.get_by_name(RELEASES_CHANNEL_NAME)
+        assert model.uploader_id == RELEASES_CHANNEL_NAME
         assert len(model.entries) >= MINIMUM_RELEASE_COUNT
+        endpoint.save_new_json_file(endpoint.original_input(model))
 
     def test_get_playlist(self) -> None:
-        """Download, parse, and save a playlist."""
-        model = client.playlist.get("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
-        client.playlist.save_new_json_file(client.playlist.original_input(model))
+        endpoint = client.playlist
+        model = endpoint.get(PLAYLIST_ID)
+        assert model.id == PLAYLIST_ID
+        endpoint.save_new_json_file(endpoint.original_input(model))
 
-    def test_get_playlist_videos(self) -> None:
-        """Download, parse, and save playlist videos by playlist ID."""
-        model = client.playlist_videos.get("PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh")
-        client.playlist_videos.save_new_json_file(client.playlist_videos.original_input(model))
-
-    def test_get_playlist_videos_by_channel_playlist_id(self) -> None:
-        """Download, parse, and save playlist videos by a channel-derived ID."""
-        model = client.playlist_videos.get("UU4QobU6STFB0P71PMvOGN5A")
-        client.playlist_videos.save_new_json_file(client.playlist_videos.original_input(model))
+    @pytest.mark.parametrize(
+        "playlist_id",
+        [PLAYLIST_ID, CHANNEL_UPLOADS_PLAYLIST_ID],
+        ids=[f"{PLAYLIST_ID=}", f"{CHANNEL_UPLOADS_PLAYLIST_ID=}"],
+    )
+    def test_get_playlist_videos(self, playlist_id: str) -> None:
+        endpoint = client.playlist_videos
+        model = endpoint.get(playlist_id)
+        assert model.id == playlist_id
+        endpoint.save_new_json_file(endpoint.original_input(model))
 
     def test_get_video(self) -> None:
-        """Download, parse, and save a video."""
-        model = client.video.get("jNQXAC9IVRw")
-        client.video.save_new_json_file(client.video.original_input(model))
+        endpoint = client.video
+        model = endpoint.get(VIDEO_ID)
+        assert model.id == VIDEO_ID
+        endpoint.save_new_json_file(endpoint.original_input(model))
 
 
 class TestInvalidGet:
-    """Test get requests for missing or invalid resources raise DownloadError."""
-
     def test_invalid_get_channel_by_name(self) -> None:
-        """Raise DownloadError when channel name does not exist."""
         with pytest.raises(DownloadError):
-            client.channel.get_by_name("channel")
+            client.channel.get_by_name(INVALID_CHANNEL_NAME)
 
     def test_invalid_get_channel_by_id(self) -> None:
-        """Raise DownloadError when channel ID does not exist."""
         with pytest.raises(DownloadError):
-            client.channel.get_by_id("UC1234567890123456789012")
+            client.channel.get_by_id(INVALID_CHANNEL_ID)
 
     def test_invalid_get_channel_playlists_by_name(self) -> None:
-        """Raise DownloadError when channel name does not exist."""
         with pytest.raises(DownloadError):
-            client.channel_playlists.get_by_name("channel")
+            client.channel_playlists.get_by_name(INVALID_CHANNEL_NAME)
 
     def test_invalid_get_channel_playlists_by_id(self) -> None:
-        """Raise DownloadError when channel ID does not exist."""
         with pytest.raises(DownloadError):
-            client.channel_playlists.get_by_id("UC1234567890123456789012")
+            client.channel_playlists.get_by_id(INVALID_CHANNEL_ID)
+
+    def test_invalid_get_channel_releases_by_name(self) -> None:
+        with pytest.raises(DownloadError):
+            client.channel_releases.get_by_name(INVALID_CHANNEL_NAME)
 
     def test_invalid_get_playlist(self) -> None:
-        """Raise DownloadError when playlist ID does not exist."""
         with pytest.raises(DownloadError):
-            client.playlist.get("PL12345678901234567890123456789012")
+            client.playlist.get(INVALID_PLAYLIST_ID)
 
     def test_invalid_get_playlist_videos(self) -> None:
-        """Raise DownloadError when playlist ID does not exist."""
         with pytest.raises(DownloadError):
-            client.playlist_videos.get("PL12345678901234567890123456789012")
+            client.playlist_videos.get(INVALID_PLAYLIST_ID)
 
     def test_invalid_get_video(self) -> None:
-        """Raise DownloadError when video ID does not exist."""
         with pytest.raises(DownloadError):
-            client.video.get("12345678901")
+            client.video.get(INVALID_VIDEO_ID)
+
+
+# Endpoints whose response lists items under ``entries`` and which therefore have
+# an empty-but-valid state (yt-dlp returns ``entries: []`` without raising).
+LIST_ENDPOINT_NAMES = ["channel_playlists", "channel_releases", "playlist_videos"]
+# Endpoints that represent a single resource and have no empty-but-valid state;
+# an invalid target raises ``DownloadError`` instead.
+SINGLE_ENDPOINT_NAMES = ["channel", "playlist", "video"]
+
+
+class TestNoContent:
+    """Cover the NoContentError layer without hitting the network.
+
+    Invalid targets already raise ``DownloadError`` (see ``TestInvalidGet``); the
+    NoContentError layer instead covers the empty-but-valid response, which is
+    hard to pin to a stable real-world fixture, so it is exercised directly.
+    """
+
+    @pytest.mark.parametrize("endpoint_name", LIST_ENDPOINT_NAMES)
+    def test_empty_entries_has_no_content(self, endpoint_name: str) -> None:
+        endpoint = getattr(client, endpoint_name)
+        assert endpoint.has_content({"entries": []}) is False
+        assert endpoint.has_content({}) is False
+        assert endpoint.has_content({"entries": [{"id": "x"}]}) is True
+
+    @pytest.mark.parametrize("endpoint_name", SINGLE_ENDPOINT_NAMES)
+    def test_single_resource_always_has_content(self, endpoint_name: str) -> None:
+        endpoint = getattr(client, endpoint_name)
+        assert endpoint.has_content({}) is True
+
+    @pytest.mark.parametrize("endpoint_name", LIST_ENDPOINT_NAMES)
+    def test_empty_entries_raises_no_content_error(self, endpoint_name: str) -> None:
+        endpoint = getattr(client, endpoint_name)
+        response: dict[str, Any] = {"entries": []}
+        with pytest.raises(NoContentError) as error:
+            endpoint._parse_or_raise(response)  # noqa: SLF001
+        # The payload is still recoverable from the raised exception.
+        assert error.value.response is response
+        assert type(endpoint).__name__ in str(error.value)
 
 
 class TestParse:
-    """Test parsing every saved file for each endpoint."""
-
-    def test_parse_channel(self) -> None:
-        """Parse all saved channel JSON files."""
-        for json_file in client.channel.json_files():
-            client.channel.parse(json.loads(json_file.read_text()))
-
-    def test_parse_channel_playlists(self) -> None:
-        """Parse all saved channel playlists JSON files."""
-        for json_file in client.channel_playlists.json_files():
-            client.channel_playlists.parse(json.loads(json_file.read_text()))
-
-    def test_parse_channel_releases(self) -> None:
-        """Parse all saved channel releases JSON files."""
-        for json_file in client.channel_releases.json_files():
-            client.channel_releases.parse(json.loads(json_file.read_text()))
-
-    def test_parse_playlist(self) -> None:
-        """Parse all saved playlist JSON files."""
-        for json_file in client.playlist.json_files():
-            client.playlist.parse(json.loads(json_file.read_text()))
-
-    def test_parse_playlist_videos(self) -> None:
-        """Parse all saved playlist videos JSON files."""
-        for json_file in client.playlist_videos.json_files():
-            client.playlist_videos.parse(json.loads(json_file.read_text()))
-
-    def test_parse_video(self) -> None:
-        """Parse all saved video JSON files."""
-        for json_file in client.video.json_files():
-            client.video.parse(json.loads(json_file.read_text()))
+    @pytest.mark.parametrize(
+        "endpoint_name",
+        [
+            "channel",
+            "channel_playlists",
+            "channel_releases",
+            "playlist",
+            "playlist_videos",
+            "video",
+        ],
+    )
+    def test_parse(self, endpoint_name: str) -> None:
+        endpoint = getattr(client, endpoint_name)
+        for json_file in endpoint.json_files():
+            endpoint.parse(json.loads(json_file.read_text()))
 
 
 class TestExtract:
-    """Test extracting typed entries from responses."""
-
     def test_extract_channel_playlists_albums(self) -> None:
-        """Scrape and extract a Topic channel's album playlists."""
-        result = client.channel_playlists.get_albums_by_id(
-            "UCo1DYcm1IZ9v3UPkpiAcgtg",
-        )
+        result = client.channel_playlists.get_albums_by_id(TOPIC_ID)
         assert len(result.albums) >= MINIMUM_ALBUM_COUNT

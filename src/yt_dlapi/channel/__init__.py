@@ -49,7 +49,7 @@ class Channel(BaseEndpoint[ChannelModel]):
         Returns:
             A Channel model containing the parsed data.
         """
-        return self.parse(self.download_by_name(channel_name))
+        return self._parse_or_raise(self.download_by_name(channel_name))
 
     def get_by_id(self, channel_id: str) -> ChannelModel:
         """Downloads and parses channel data for a given channel ID.
@@ -62,4 +62,4 @@ class Channel(BaseEndpoint[ChannelModel]):
         Returns:
             A Channel model containing the parsed data.
         """
-        return self.parse(self.download_by_id(channel_id))
+        return self._parse_or_raise(self.download_by_id(channel_id))

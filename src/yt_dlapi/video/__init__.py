@@ -38,4 +38,4 @@ class Video(BaseEndpoint[VideoModel]):
             A Video model containing the parsed data.
         """
         data = self.download(video_id)
-        return self.parse(data)
+        return self._parse_or_raise(data)

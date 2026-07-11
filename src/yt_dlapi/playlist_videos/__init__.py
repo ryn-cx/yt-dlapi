@@ -14,6 +14,11 @@ class PlaylistVideos(BaseEndpoint[PlaylistVideosModel]):
 
     _response_model = PlaylistVideosModel
 
+    @staticmethod
+    def has_content(response: dict[str, Any]) -> bool:
+        """Return whether the playlist contains at least one video."""
+        return bool(response.get("entries"))
+
     def download(self, playlist_id: str) -> dict[str, Any]:
         """Downloads playlist videos data for a given playlist ID.
 
@@ -41,6 +46,10 @@ class PlaylistVideos(BaseEndpoint[PlaylistVideosModel]):
 
         Returns:
             A PlaylistVideos model containing the parsed data.
+
+        Raises:
+            NoContentError: If the playlist contains no videos. The raw response
+                is available on the exception's ``response`` attribute.
         """
         response = self.download(playlist_id)
-        return self.parse(response)
+        return self._parse_or_raise(response)
