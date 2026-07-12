@@ -1,7 +1,8 @@
 # TODO: Validate
-"""YTDLAPI is a client for downloading and parsing data from YouTube."""
+"""Contains the YTDLAPI class."""
 
 import json
+import time
 from datetime import datetime
 from logging import NullHandler, getLogger
 from typing import Any
@@ -21,7 +22,7 @@ logger.addHandler(NullHandler())
 
 
 class YTDLAPI:
-    """Interface for downloading and parsing data from YouTube."""
+    """YouTube API wrapper."""
 
     def __init__(self) -> None:
         """Initialize the YTDLAPI client."""
@@ -38,11 +39,14 @@ class YTDLAPI:
         self,
         url: str,
         *,
+        log_id: str,
         process: bool = False,
         extract_flat: bool = False,
     ) -> dict[str, Any]:
         """Make a request to yt-dlp with the given URL and options."""
-        logger.info("Downloading %s", url)
+        operation = f"{url} ({log_id}, extract_flat={extract_flat}, process={process})"
+        logger.debug("Downloading: %s", operation)
+        start = time.monotonic()
 
         # extract_flat determines how deep information should be downloaded. If True
         # when downloading something like a playlist only basic information about the
@@ -68,40 +72,26 @@ class YTDLAPI:
                 "params": {"extract_flat": extract_flat, "process": process},
             }
 
+            logger.debug("Downloaded %s (%.4f s)", operation, time.monotonic() - start)
             return output
 
     def download_html(self, url: str) -> str:
-        """Download the raw HTML of a URL using yt-dlp's HTTP layer.
-
-        Used to scrape data that yt-dlp's extractors do not expose (for example the
-        auto-generated album and single playlists on a Topic channel's home page).
-
-        Args:
-            url: The URL to fetch.
-
-        Returns:
-            The decoded HTML of the page.
-        """
-        logger.info("Downloading HTML %s", url)
+        """Download the raw HTML of a URL using yt-dlp's HTTP layer."""
+        operation = f"HTML {url}"
+        logger.debug("Downloading: %s", operation)
+        start = time.monotonic()
 
         with YoutubeDL({"quiet": True}) as ytdl:
             response = ytdl.urlopen(url)
-            return response.read().decode("utf-8", "replace")
+            html = response.read().decode("utf-8", "replace")
+            logger.debug("Downloaded %s (%.4f s)", operation, time.monotonic() - start)
+            return html
 
     def download_json(self, url: str, payload: dict[str, Any]) -> dict[str, Any]:
-        """POSTs a JSON payload to a URL and returns the decoded JSON response.
-
-        Used to call YouTube's internal InnerTube API (for example to page through a
-        Topic channel's full list of album and single playlists).
-
-        Args:
-            url: The URL to POST to.
-            payload: The JSON body to send.
-
-        Returns:
-            The decoded JSON response.
-        """
-        logger.info("Downloading JSON %s", url)
+        """POSTs a JSON payload to a URL and returns the decoded JSON response."""
+        operation = f"JSON {url}"
+        logger.debug("Downloading: %s", operation)
+        start = time.monotonic()
 
         with YoutubeDL({"quiet": True}) as ytdl:
             request = Request(
@@ -110,4 +100,6 @@ class YTDLAPI:
                 headers={"Content-Type": "application/json"},
             )
             response = ytdl.urlopen(request)
-            return json.loads(response.read().decode("utf-8", "replace"))
+            result = json.loads(response.read().decode("utf-8", "replace"))
+            logger.debug("Downloaded %s (%.4f s)", operation, time.monotonic() - start)
+            return result

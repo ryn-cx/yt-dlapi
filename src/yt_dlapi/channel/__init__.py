@@ -1,5 +1,5 @@
 # TODO: Validate
-"""Channel API endpoint."""
+"""Contains the Channel class."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from yt_dlapi.channel.models import ChannelModel
 
 
 class Channel(BaseEndpoint[ChannelModel]):
-    """Provides methods to download, parse, and retrieve channel data."""
+    """Manage the channel file."""
 
     _response_model = ChannelModel
 
@@ -24,7 +24,10 @@ class Channel(BaseEndpoint[ChannelModel]):
             The raw JSON response as a dict, suitable for passing to ``parse()``.
         """
         url = f"https://www.youtube.com/@{channel_name}"
-        return self._client.download(url)
+        return self._client.download(
+            url,
+            log_id=f"{self.__class__.__name__} {channel_name}",
+        )
 
     def download_by_id(self, channel_id: str) -> dict[str, Any]:
         """Downloads channel data for a given channel ID.
@@ -36,7 +39,10 @@ class Channel(BaseEndpoint[ChannelModel]):
             The raw JSON response as a dict, suitable for passing to ``parse()``.
         """
         url = f"https://www.youtube.com/channel/{channel_id}"
-        return self._client.download(url)
+        return self._client.download(
+            url,
+            log_id=f"{self.__class__.__name__} {channel_id}",
+        )
 
     def get_by_name(self, channel_name: str) -> ChannelModel:
         """Downloads and parses channel data for a given channel name.
@@ -49,7 +55,10 @@ class Channel(BaseEndpoint[ChannelModel]):
         Returns:
             A Channel model containing the parsed data.
         """
-        return self._parse_or_raise(self.download_by_name(channel_name))
+        return self._parse_or_raise(
+            self.download_by_name(channel_name),
+            f"{self.__class__.__name__} {channel_name}",
+        )
 
     def get_by_id(self, channel_id: str) -> ChannelModel:
         """Downloads and parses channel data for a given channel ID.
@@ -62,4 +71,7 @@ class Channel(BaseEndpoint[ChannelModel]):
         Returns:
             A Channel model containing the parsed data.
         """
-        return self._parse_or_raise(self.download_by_id(channel_id))
+        return self._parse_or_raise(
+            self.download_by_id(channel_id),
+            f"{self.__class__.__name__} {channel_id}",
+        )

@@ -1,30 +1,19 @@
 # TODO: Validate
-"""Channel Playlists API endpoint."""
+"""Contains the ChannelPlaylists class."""
 
 from __future__ import annotations
 
 from typing import Any
 
 from yt_dlapi.base_api_endpoint import BaseEndpoint
-from yt_dlapi.channel_playlists.albums import Album, ChannelAlbums
 from yt_dlapi.channel_playlists.models import ChannelPlaylistsModel
-from yt_dlapi.channel_playlists.zzz_album_scraper import (
-    browse_url,
-    continuation_payload,
-    extract_albums,
-    extract_api_key,
-    extract_client_version,
-    extract_yt_initial_data,
-    find_album_continuation_token,
-    find_continuation_token,
-)
 
 # Safety cap on continuation pages, to avoid looping forever on a malformed token.
 _MAX_CONTINUATION_PAGES = 50
 
 
 class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
-    """Provides methods to download, parse, and retrieve channel playlists data."""
+    """Manage the channel playlists file."""
 
     _response_model = ChannelPlaylistsModel
 
@@ -45,6 +34,7 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         url = f"https://www.youtube.com/{channel_name}/playlists"
         return self._client.download(
             url,
+            log_id=f"{self.__class__.__name__} {channel_name}",
             process=True,
             extract_flat=True,
         )
@@ -61,6 +51,7 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         url = f"https://www.youtube.com/channel/{channel_id}/playlists"
         return self._client.download(
             url,
+            log_id=f"{self.__class__.__name__} {channel_id}",
             process=True,
             extract_flat=True,
         )
@@ -80,7 +71,10 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
             NoContentError: If the playlists tab lists nothing. The raw response
                 is available on the exception's ``response`` attribute.
         """
-        return self._parse_or_raise(self.download_by_name(channel_name))
+        return self._parse_or_raise(
+            self.download_by_name(channel_name),
+            f"{self.__class__.__name__} {channel_name}",
+        )
 
     def get_by_id(self, channel_id: str) -> ChannelPlaylistsModel:
         """Downloads and parses channel playlists data for a given channel ID.
@@ -97,7 +91,10 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
             NoContentError: If the playlists tab lists nothing. The raw response
                 is available on the exception's ``response`` attribute.
         """
-        return self._parse_or_raise(self.download_by_id(channel_id))
+        return self._parse_or_raise(
+            self.download_by_id(channel_id),
+            f"{self.__class__.__name__} {channel_id}",
+        )
 
     def download_albums_by_id(self, channel_id: str) -> str:
         """Downloads the home page HTML for a channel by ID.

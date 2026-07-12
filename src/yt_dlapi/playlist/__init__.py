@@ -1,5 +1,5 @@
 # TODO: Validate
-"""Playlist API endpoint."""
+"""Contains the Playlist class."""
 
 from __future__ import annotations
 
@@ -10,32 +10,22 @@ from yt_dlapi.playlist.models import PlaylistModel
 
 
 class Playlist(BaseEndpoint[PlaylistModel]):
-    """Provides methods to download, parse, and retrieve playlist data."""
+    """Manage the playlist file."""
 
     _response_model = PlaylistModel
 
     def download(self, playlist_id: str) -> dict[str, Any]:
-        """Downloads playlist data for a given playlist ID.
-
-        Args:
-            playlist_id: The ID of the playlist to download.
-
-        Returns:
-            The raw JSON response as a dict, suitable for passing to ``parse()``.
-        """
+        """Downloads the playlist file."""
         url = f"https://www.youtube.com/playlist?list={playlist_id}"
-        return self._client.download(url)
+        return self._client.download(
+            url,
+            log_id=f"{self.__class__.__name__} {playlist_id}",
+        )
 
     def get(self, playlist_id: str) -> PlaylistModel:
-        """Downloads and parses playlist data for a given playlist ID.
-
-        Convenience method that calls ``download()`` then ``parse()``.
-
-        Args:
-            playlist_id: The ID of the playlist to get.
-
-        Returns:
-            A Playlist model containing the parsed data.
-        """
+        """Downloads and parses the playlist file."""
         response = self.download(playlist_id)
-        return self._parse_or_raise(response)
+        return self._parse_or_raise(
+            response,
+            f"{self.__class__.__name__} {playlist_id}",
+        )

@@ -1,5 +1,5 @@
 # TODO: Validate
-"""Playlist Videos API endpoint."""
+"""Contains the PlaylistVideos class."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from yt_dlapi.playlist_videos.models import PlaylistVideosModel
 
 
 class PlaylistVideos(BaseEndpoint[PlaylistVideosModel]):
-    """Provides methods to download, parse, and retrieve playlist videos data."""
+    """Manage the playlist videos file."""
 
     _response_model = PlaylistVideosModel
 
@@ -20,36 +20,25 @@ class PlaylistVideos(BaseEndpoint[PlaylistVideosModel]):
         return bool(response.get("entries"))
 
     def download(self, playlist_id: str) -> dict[str, Any]:
-        """Downloads playlist videos data for a given playlist ID.
-
-        Args:
-            playlist_id: The ID of the playlist to download videos for.
-
-        Returns:
-            The raw JSON response as a dict, suitable for passing to ``parse()``.
-        """
+        """Downloads the playlist videos file."""
         url = f"https://www.youtube.com/playlist?list={playlist_id}"
         # Need to get the episodes of the playlist so process must be True.
         return self._client.download(
             url,
+            log_id=f"{self.__class__.__name__} {playlist_id}",
             process=True,
             extract_flat=True,
         )
 
     def get(self, playlist_id: str) -> PlaylistVideosModel:
-        """Downloads and parses playlist videos data for a given playlist ID.
-
-        Convenience method that calls ``download()`` then ``parse()``.
-
-        Args:
-            playlist_id: The ID of the playlist to get videos for.
-
-        Returns:
-            A PlaylistVideos model containing the parsed data.
+        """Downloads and parses the playlist videos file.
 
         Raises:
             NoContentError: If the playlist contains no videos. The raw response
                 is available on the exception's ``response`` attribute.
         """
         response = self.download(playlist_id)
-        return self._parse_or_raise(response)
+        return self._parse_or_raise(
+            response,
+            f"{self.__class__.__name__} {playlist_id}",
+        )

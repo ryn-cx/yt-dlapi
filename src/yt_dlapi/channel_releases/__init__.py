@@ -1,5 +1,5 @@
 # TODO: Validate
-"""Channel Releases API endpoint."""
+"""Contains the ChannelReleases class."""
 
 from __future__ import annotations
 
@@ -10,12 +10,7 @@ from yt_dlapi.channel_releases.models import ChannelReleasesModel
 
 
 class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
-    """Provides methods to download, parse, and retrieve channel releases data.
-
-    A channel's "Releases" tab lists its albums and singles as playlists. Unlike the
-    auto-generated "Albums & Singles" shelf on Topic channels, this tab is exposed by
-    yt-dlp directly, so no HTML scraping is required.
-    """
+    """Manage the channel releases file."""
 
     _response_model = ChannelReleasesModel
 
@@ -36,6 +31,7 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
         url = f"https://www.youtube.com/{channel_name}/releases"
         return self._client.download(
             url,
+            log_id=f"{self.__class__.__name__} {channel_name}",
             process=True,
             extract_flat=True,
         )
@@ -52,6 +48,7 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
         url = f"https://www.youtube.com/channel/{channel_id}/releases"
         return self._client.download(
             url,
+            log_id=f"{self.__class__.__name__} {channel_id}",
             process=True,
             extract_flat=True,
         )
@@ -71,7 +68,10 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
             NoContentError: If the releases tab lists nothing. The raw response
                 is available on the exception's ``response`` attribute.
         """
-        return self._parse_or_raise(self.download_by_name(channel_name))
+        return self._parse_or_raise(
+            self.download_by_name(channel_name),
+            f"{self.__class__.__name__} {channel_name}",
+        )
 
     def get_by_id(self, channel_id: str) -> ChannelReleasesModel:
         """Downloads and parses channel releases data for a given channel ID.
@@ -88,4 +88,7 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
             NoContentError: If the releases tab lists nothing. The raw response
                 is available on the exception's ``response`` attribute.
         """
-        return self._parse_or_raise(self.download_by_id(channel_id))
+        return self._parse_or_raise(
+            self.download_by_id(channel_id),
+            f"{self.__class__.__name__} {channel_id}",
+        )

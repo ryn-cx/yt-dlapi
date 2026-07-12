@@ -1,5 +1,5 @@
 # TODO: Validate
-"""Video API endpoint."""
+"""Contains the Video class."""
 
 from __future__ import annotations
 
@@ -10,32 +10,19 @@ from yt_dlapi.video.models import VideoModel
 
 
 class Video(BaseEndpoint[VideoModel]):
-    """Provides methods to download, parse, and retrieve video data."""
+    """Manage the video file."""
 
     _response_model = VideoModel
 
     def download(self, video_id: str) -> dict[str, Any]:
-        """Downloads video data for a given video ID.
-
-        Args:
-            video_id: The ID of the video to download.
-
-        Returns:
-            The raw JSON response as a dict, suitable for passing to ``parse()``.
-        """
+        """Downloads the video file."""
         url = f"https://www.youtube.com/watch?v={video_id}"
-        return self._client.download(url)
+        return self._client.download(
+            url,
+            log_id=f"{self.__class__.__name__} {video_id}",
+        )
 
     def get(self, video_id: str) -> VideoModel:
-        """Downloads and parses video data for a given video ID.
-
-        Convenience method that calls ``download()`` then ``parse()``.
-
-        Args:
-            video_id: The ID of the video to get.
-
-        Returns:
-            A Video model containing the parsed data.
-        """
+        """Downloads and parses the video file."""
         data = self.download(video_id)
-        return self._parse_or_raise(data)
+        return self._parse_or_raise(data, f"{self.__class__.__name__} {video_id}")
