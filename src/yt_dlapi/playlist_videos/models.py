@@ -1,4 +1,3 @@
-# TODO: Validate
 # ruff: noqa: D100, D101, D102, TC001, TC002, TC003
 from good_ass_pydantic_integrator import GAPIBaseModel
 from pydantic import AwareDatetime, ConfigDict, Field
@@ -95,4 +94,4 @@ class PlaylistVideosModel(GAPIBaseModel):
     release_year: None
     epoch: int
     field_version: FieldVersion = Field(..., alias="_version")
-    yt_dlapi: YtDlapi
+    yt_dlapi: YtDlapi | None = None

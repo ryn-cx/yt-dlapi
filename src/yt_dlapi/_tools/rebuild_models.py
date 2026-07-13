@@ -1,4 +1,6 @@
 # TODO: Validate
+"""Rebuilds YtDlapi models."""
+
 import logging
 
 from good_ass_pydantic_integrator.utils import rebuild_models

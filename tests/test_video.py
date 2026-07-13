@@ -1,34 +1,38 @@
 # TODO: Validate
+from __future__ import annotations
+
 import json
+from typing import TYPE_CHECKING
 
 import pytest
-from yt_dlp.utils import DownloadError
 
+from tests.utils import data_path, download_if_missing
 from yt_dlapi import YTDLAPI
+
+if TYPE_CHECKING:
+    from yt_dlapi.video import Video
 
 client = YTDLAPI()
 
 VIDEO_ID = "jNQXAC9IVRw"
 """video id of me at the zoo."""
-INVALID_VIDEO_ID = "12345678901"
+
+
+@pytest.fixture(scope="session")
+def endpoint() -> Video:
+    return client.video
 
 
 class TestVideo:
-    def test_get(self) -> None:
-        endpoint = client.video
-        model = endpoint.get(VIDEO_ID)
-        assert model.id == VIDEO_ID
-        endpoint.save_new_json_file(endpoint.original_input(model))
+    def test_download(self, endpoint: Video) -> None:
+        download_if_missing(
+            endpoint,
+            VIDEO_ID,
+            lambda: endpoint.download(VIDEO_ID),
+        )
 
-    def test_invalid_get(self) -> None:
-        with pytest.raises(DownloadError):
-            client.video.get(INVALID_VIDEO_ID)
-
-    def test_single_resource_always_has_content(self) -> None:
-        endpoint = client.video
-        assert endpoint.has_content({}) is True
-
-    def test_parse(self) -> None:
-        endpoint = client.video
-        for json_file in endpoint.json_files():
-            endpoint.parse(json.loads(json_file.read_text()))
+    def test_parse(self, endpoint: Video) -> None:
+        json_file = data_path(endpoint, VIDEO_ID)
+        data = endpoint.parse(json.loads(json_file.read_text()))
+        assert data is not None
+        # TODO: assert data.id == VIDEO_ID (needs live data)

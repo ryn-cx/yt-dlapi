@@ -1,4 +1,3 @@
-# TODO: Validate
 # ruff: noqa: D100, D101, D102, TC001, TC002, TC003
 from typing import Any
 
@@ -153,4 +152,4 @@ class VideoModel(GAPIBaseModel):
     epoch: int
     field_type: str = Field(..., alias="_type")
     field_version: FieldVersion = Field(..., alias="_version")
-    yt_dlapi: YtDlapi
+    yt_dlapi: YtDlapi | None = None

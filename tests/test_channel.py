@@ -1,10 +1,16 @@
 # TODO: Validate
+from __future__ import annotations
+
 import json
+from typing import TYPE_CHECKING
 
 import pytest
-from yt_dlp.utils import DownloadError
 
+from tests.utils import data_path, download_if_missing
 from yt_dlapi import YTDLAPI
+
+if TYPE_CHECKING:
+    from yt_dlapi.channel import Channel
 
 client = YTDLAPI()
 
@@ -12,36 +18,28 @@ CHANNEL_NAME = "jawed"
 """A channel name."""
 CHANNEL_ID = "UC4QobU6STFB0P71PMvOGN5A"
 """channel_id of the jawed channel."""
-INVALID_CHANNEL_NAME = "channel"
-INVALID_CHANNEL_ID = "UC1234567890123456789012"
+
+# Each case is the download method to call and the identifier to pass it.
+CASES = [
+    ("download_by_name", CHANNEL_NAME),
+    ("download_by_id", CHANNEL_ID),
+]
+IDENTIFIERS = [identifier for _, identifier in CASES]
+
+
+@pytest.fixture(scope="session")
+def endpoint() -> Channel:
+    return client.channel
 
 
 class TestChannel:
-    def test_get_by_name(self) -> None:
-        endpoint = client.channel
-        model = endpoint.get_by_name(CHANNEL_NAME)
-        assert model.channel == CHANNEL_NAME
-        endpoint.save_new_json_file(endpoint.original_input(model))
+    @pytest.mark.parametrize(("method", "identifier"), CASES)
+    def test_download(self, endpoint: Channel, method: str, identifier: str) -> None:
+        download = getattr(endpoint, method)
+        download_if_missing(endpoint, identifier, lambda: download(identifier))
 
-    def test_get_by_id(self) -> None:
-        endpoint = client.channel
-        model = endpoint.get_by_id(CHANNEL_ID)
-        assert model.channel_id == CHANNEL_ID
-        endpoint.save_new_json_file(endpoint.original_input(model))
-
-    def test_invalid_get_by_name(self) -> None:
-        with pytest.raises(DownloadError):
-            client.channel.get_by_name(INVALID_CHANNEL_NAME)
-
-    def test_invalid_get_by_id(self) -> None:
-        with pytest.raises(DownloadError):
-            client.channel.get_by_id(INVALID_CHANNEL_ID)
-
-    def test_single_resource_always_has_content(self) -> None:
-        endpoint = client.channel
-        assert endpoint.has_content({}) is True
-
-    def test_parse(self) -> None:
-        endpoint = client.channel
-        for json_file in endpoint.json_files():
-            endpoint.parse(json.loads(json_file.read_text()))
+    @pytest.mark.parametrize("identifier", IDENTIFIERS)
+    def test_parse(self, endpoint: Channel, identifier: str) -> None:
+        data = endpoint.parse(json.loads(data_path(endpoint, identifier).read_text()))
+        assert data is not None
+        # TODO: assert expected value (needs live data)

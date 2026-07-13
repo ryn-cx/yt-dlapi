@@ -64,14 +64,7 @@ class YTDLAPI:
                 msg = f"yt-dlp returned no data for {url}"
                 raise ValueError(msg)
 
-            timestamp = datetime.now().astimezone().isoformat().replace("+00:00", "Z")
             output: dict[str, Any] = dict(sanitized)
-            output["yt_dlapi"] = {
-                "timestamp": timestamp,
-                "url": url,
-                "params": {"extract_flat": extract_flat, "process": process},
-            }
-
             logger.debug("Downloaded %s (%.4f s)", operation, time.monotonic() - start)
             return output
 
