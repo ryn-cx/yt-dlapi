@@ -3,10 +3,14 @@
 
 from __future__ import annotations
 
+from logging import NullHandler, getLogger
 from typing import Any
 
 from yt_dlapi.base_api_endpoint import BaseEndpoint
 from yt_dlapi.video.models import VideoModel
+
+logger = getLogger(__name__)
+logger.addHandler(NullHandler())
 
 
 class Video(BaseEndpoint[VideoModel]):
@@ -14,15 +18,18 @@ class Video(BaseEndpoint[VideoModel]):
 
     _response_model = VideoModel
 
+    def get_log_id(self, video_id: str) -> str:
+        """Build the log id for a download."""
+        return f"{self.__class__.__name__} {video_id=}"
+
     def download(self, video_id: str) -> dict[str, Any]:
         """Downloads the video file."""
         url = f"https://www.youtube.com/watch?v={video_id}"
         return self._client.download(
             url,
-            log_id=f"{self.__class__.__name__} {video_id}",
+            log_id=self.get_log_id(video_id),
         )
 
-    def get(self, video_id: str) -> VideoModel:
+    def download_and_parse(self, video_id: str) -> VideoModel:
         """Downloads and parses the video file."""
-        data = self.download(video_id)
-        return self._parse_or_raise(data, f"{self.__class__.__name__} {video_id}")
+        return self.parse(self.download(video_id))

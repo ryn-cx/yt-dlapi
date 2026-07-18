@@ -3,16 +3,33 @@
 
 from __future__ import annotations
 
+from logging import NullHandler, getLogger
 from typing import Any
 
 from yt_dlapi.base_api_endpoint import BaseEndpoint
 from yt_dlapi.channel.models import ChannelModel
+
+logger = getLogger(__name__)
+logger.addHandler(NullHandler())
 
 
 class Channel(BaseEndpoint[ChannelModel]):
     """Manage the channel file."""
 
     _response_model = ChannelModel
+
+    def get_log_id(
+        self,
+        *,
+        channel_name: str | None = None,
+        channel_id: str | None = None,
+    ) -> str:
+        """Build the log id for a download."""
+        return self.append_non_default_args(
+            f"{self.__class__.__name__}",
+            channel_name=(channel_name, None),
+            channel_id=(channel_id, None),
+        )
 
     def download_by_name(self, channel_name: str) -> dict[str, Any]:
         """Downloads channel data for a given channel name.
@@ -26,7 +43,7 @@ class Channel(BaseEndpoint[ChannelModel]):
         url = f"https://www.youtube.com/@{channel_name}"
         return self._client.download(
             url,
-            log_id=f"{self.__class__.__name__} {channel_name}",
+            log_id=self.get_log_id(channel_name=channel_name),
         )
 
     def download_by_id(self, channel_id: str) -> dict[str, Any]:
@@ -41,10 +58,10 @@ class Channel(BaseEndpoint[ChannelModel]):
         url = f"https://www.youtube.com/channel/{channel_id}"
         return self._client.download(
             url,
-            log_id=f"{self.__class__.__name__} {channel_id}",
+            log_id=self.get_log_id(channel_id=channel_id),
         )
 
-    def get_by_name(self, channel_name: str) -> ChannelModel:
+    def download_and_parse_by_name(self, channel_name: str) -> ChannelModel:
         """Downloads and parses channel data for a given channel name.
 
         Convenience method that calls ``download_by_name()`` then ``parse()``.
@@ -55,12 +72,9 @@ class Channel(BaseEndpoint[ChannelModel]):
         Returns:
             A Channel model containing the parsed data.
         """
-        return self._parse_or_raise(
-            self.download_by_name(channel_name),
-            f"{self.__class__.__name__} {channel_name}",
-        )
+        return self.parse(self.download_by_name(channel_name))
 
-    def get_by_id(self, channel_id: str) -> ChannelModel:
+    def download_and_parse_by_id(self, channel_id: str) -> ChannelModel:
         """Downloads and parses channel data for a given channel ID.
 
         Convenience method that calls ``download_by_id()`` then ``parse()``.
@@ -71,7 +85,4 @@ class Channel(BaseEndpoint[ChannelModel]):
         Returns:
             A Channel model containing the parsed data.
         """
-        return self._parse_or_raise(
-            self.download_by_id(channel_id),
-            f"{self.__class__.__name__} {channel_id}",
-        )
+        return self.parse(self.download_by_id(channel_id))

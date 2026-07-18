@@ -3,10 +3,14 @@
 
 from __future__ import annotations
 
+from logging import NullHandler, getLogger
 from typing import Any
 
 from yt_dlapi.base_api_endpoint import BaseEndpoint
 from yt_dlapi.channel_playlists.models import ChannelPlaylistsModel
+
+logger = getLogger(__name__)
+logger.addHandler(NullHandler())
 
 # Safety cap on continuation pages, to avoid looping forever on a malformed token.
 _MAX_CONTINUATION_PAGES = 50
@@ -22,6 +26,19 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         """Return whether the playlists tab lists at least one playlist."""
         return bool(response.get("entries"))
 
+    def get_log_id(
+        self,
+        *,
+        channel_name: str | None = None,
+        channel_id: str | None = None,
+    ) -> str:
+        """Build the log id for a download."""
+        return self.append_non_default_args(
+            f"{self.__class__.__name__}",
+            channel_name=(channel_name, None),
+            channel_id=(channel_id, None),
+        )
+
     def download_by_name(self, channel_name: str) -> dict[str, Any]:
         """Downloads channel playlists data for a given channel name.
 
@@ -34,7 +51,7 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         url = f"https://www.youtube.com/{channel_name}/playlists"
         return self._client.download(
             url,
-            log_id=f"{self.__class__.__name__} {channel_name}",
+            log_id=self.get_log_id(channel_name=channel_name),
             process=True,
             extract_flat=True,
         )
@@ -51,12 +68,12 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         url = f"https://www.youtube.com/channel/{channel_id}/playlists"
         return self._client.download(
             url,
-            log_id=f"{self.__class__.__name__} {channel_id}",
+            log_id=self.get_log_id(channel_id=channel_id),
             process=True,
             extract_flat=True,
         )
 
-    def get_by_name(self, channel_name: str) -> ChannelPlaylistsModel:
+    def download_and_parse_by_name(self, channel_name: str) -> ChannelPlaylistsModel:
         """Downloads and parses channel playlists data for a given channel name.
 
         Convenience method that calls ``download_by_name()`` then ``parse()``.
@@ -73,10 +90,10 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         """
         return self._parse_or_raise(
             self.download_by_name(channel_name),
-            f"{self.__class__.__name__} {channel_name}",
+            self.get_log_id(channel_name=channel_name),
         )
 
-    def get_by_id(self, channel_id: str) -> ChannelPlaylistsModel:
+    def download_and_parse_by_id(self, channel_id: str) -> ChannelPlaylistsModel:
         """Downloads and parses channel playlists data for a given channel ID.
 
         Convenience method that calls ``download_by_id()`` then ``parse()``.
@@ -93,7 +110,7 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         """
         return self._parse_or_raise(
             self.download_by_id(channel_id),
-            f"{self.__class__.__name__} {channel_id}",
+            self.get_log_id(channel_id=channel_id),
         )
 
     def download_albums_by_id(self, channel_id: str) -> str:
@@ -190,7 +207,7 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
 
         return extra
 
-    def get_albums_by_id(self, channel_id: str) -> ChannelAlbums:
+    def download_and_parse_albums_by_id(self, channel_id: str) -> ChannelAlbums:
         """Downloads and parses a channel's album and single playlists by ID.
 
         Convenience method that scrapes the auto-generated album playlists from a
@@ -205,7 +222,7 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         url = f"https://www.youtube.com/channel/{channel_id}"
         return self.parse_albums(self.download_albums_by_id(channel_id), url)
 
-    def get_albums_by_name(self, channel_name: str) -> ChannelAlbums:
+    def download_and_parse_albums_by_name(self, channel_name: str) -> ChannelAlbums:
         """Downloads and parses a channel's album and single playlists by name.
 
         Convenience method that scrapes the auto-generated album playlists from a

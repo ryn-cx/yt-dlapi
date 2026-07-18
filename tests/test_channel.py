@@ -1,18 +1,15 @@
 # TODO: Validate
 from __future__ import annotations
 
-import json
 from typing import TYPE_CHECKING
 
 import pytest
 
-from tests.utils import data_path, download_if_missing
-from yt_dlapi import YTDLAPI
+from tests.utils import download_and_save, parse_json
 
 if TYPE_CHECKING:
+    from yt_dlapi import YTDLAPI
     from yt_dlapi.channel import Channel
-
-client = YTDLAPI()
 
 CHANNEL_NAME = "jawed"
 """A channel name."""
@@ -28,7 +25,7 @@ IDENTIFIERS = [identifier for _, identifier in CASES]
 
 
 @pytest.fixture(scope="session")
-def endpoint() -> Channel:
+def endpoint(client: YTDLAPI) -> Channel:
     return client.channel
 
 
@@ -36,10 +33,21 @@ class TestChannel:
     @pytest.mark.parametrize(("method", "identifier"), CASES)
     def test_download(self, endpoint: Channel, method: str, identifier: str) -> None:
         download = getattr(endpoint, method)
-        download_if_missing(endpoint, identifier, lambda: download(identifier))
+        download_and_save(endpoint, identifier, lambda: download(identifier))
 
     @pytest.mark.parametrize("identifier", IDENTIFIERS)
     def test_parse(self, endpoint: Channel, identifier: str) -> None:
-        data = endpoint.parse(json.loads(data_path(endpoint, identifier).read_text()))
+        data = parse_json(endpoint, identifier)
         assert data is not None
         # TODO: assert expected value (needs live data)
+
+
+def test_log_id(endpoint: Channel) -> None:
+    assert (
+        endpoint.get_log_id(channel_name=CHANNEL_NAME)
+        == f"Channel channel_name={CHANNEL_NAME!r}"
+    )
+    assert (
+        endpoint.get_log_id(channel_id=CHANNEL_ID)
+        == f"Channel channel_id={CHANNEL_ID!r}"
+    )

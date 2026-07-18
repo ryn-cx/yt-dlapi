@@ -28,6 +28,17 @@ class BaseEndpoint[T: GAPIBaseModel](BaseExtractor[T]):
         self._client = client
 
     @staticmethod
+    def append_non_default_args(
+        log_id: str,
+        **args: tuple[object, object],
+    ) -> str:
+        """Append ``name=value`` for each arg whose value differs from its default."""
+        for name, (value, default) in args.items():
+            if value != default:
+                log_id += f" {name}={value!r}"
+        return log_id
+
+    @staticmethod
     def has_content(response: dict[str, Any]) -> bool:
         """Return whether a successful download has meaningful content.
 

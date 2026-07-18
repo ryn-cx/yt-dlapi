@@ -3,10 +3,14 @@
 
 from __future__ import annotations
 
+from logging import NullHandler, getLogger
 from typing import Any
 
 from yt_dlapi.base_api_endpoint import BaseEndpoint
 from yt_dlapi.channel_releases.models import ChannelReleasesModel
+
+logger = getLogger(__name__)
+logger.addHandler(NullHandler())
 
 
 class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
@@ -18,6 +22,19 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
     def has_content(response: dict[str, Any]) -> bool:
         """Return whether the releases tab lists at least one release."""
         return bool(response.get("entries"))
+
+    def get_log_id(
+        self,
+        *,
+        channel_name: str | None = None,
+        channel_id: str | None = None,
+    ) -> str:
+        """Build the log id for a download."""
+        return self.append_non_default_args(
+            f"{self.__class__.__name__}",
+            channel_name=(channel_name, None),
+            channel_id=(channel_id, None),
+        )
 
     def download_by_name(self, channel_name: str) -> dict[str, Any]:
         """Downloads channel releases data for a given channel name.
@@ -31,7 +48,7 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
         url = f"https://www.youtube.com/{channel_name}/releases"
         return self._client.download(
             url,
-            log_id=f"{self.__class__.__name__} {channel_name}",
+            log_id=self.get_log_id(channel_name=channel_name),
             process=True,
             extract_flat=True,
         )
@@ -48,12 +65,12 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
         url = f"https://www.youtube.com/channel/{channel_id}/releases"
         return self._client.download(
             url,
-            log_id=f"{self.__class__.__name__} {channel_id}",
+            log_id=self.get_log_id(channel_id=channel_id),
             process=True,
             extract_flat=True,
         )
 
-    def get_by_name(self, channel_name: str) -> ChannelReleasesModel:
+    def download_and_parse_by_name(self, channel_name: str) -> ChannelReleasesModel:
         """Downloads and parses channel releases data for a given channel name.
 
         Convenience method that calls ``download_by_name()`` then ``parse()``.
@@ -70,10 +87,10 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
         """
         return self._parse_or_raise(
             self.download_by_name(channel_name),
-            f"{self.__class__.__name__} {channel_name}",
+            self.get_log_id(channel_name=channel_name),
         )
 
-    def get_by_id(self, channel_id: str) -> ChannelReleasesModel:
+    def download_and_parse_by_id(self, channel_id: str) -> ChannelReleasesModel:
         """Downloads and parses channel releases data for a given channel ID.
 
         Convenience method that calls ``download_by_id()`` then ``parse()``.
@@ -90,5 +107,5 @@ class ChannelReleases(BaseEndpoint[ChannelReleasesModel]):
         """
         return self._parse_or_raise(
             self.download_by_id(channel_id),
-            f"{self.__class__.__name__} {channel_id}",
+            self.get_log_id(channel_id=channel_id),
         )
