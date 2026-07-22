@@ -18,16 +18,13 @@ class Video(BaseEndpoint[VideoModel]):
 
     _response_model = VideoModel
 
-    def get_log_id(self, video_id: str) -> str:
-        """Build the log id for a download."""
-        return f"{self.__class__.__name__} {video_id=}"
-
     def download(self, video_id: str) -> dict[str, Any]:
         """Downloads the video file."""
+        log_id = self.get_log_id(self.download, locals())
         url = f"https://www.youtube.com/watch?v={video_id}"
         return self._client.download(
             url,
-            log_id=self.get_log_id(video_id),
+            log_id=log_id,
         )
 
     def download_and_parse(self, video_id: str) -> VideoModel:

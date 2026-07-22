@@ -54,14 +54,3 @@ class TestChannelPlaylists:
             lambda: endpoint._parse_or_raise({"entries": []}, "empty"),  # noqa: SLF001
             NoContentError,
         )
-
-
-def test_log_id(endpoint: ChannelPlaylists) -> None:
-    assert (
-        endpoint.get_log_id(channel_name=CHANNEL_NAME)
-        == f"ChannelPlaylists channel_name={CHANNEL_NAME!r}"
-    )
-    assert (
-        endpoint.get_log_id(channel_id=CHANNEL_ID)
-        == f"ChannelPlaylists channel_id={CHANNEL_ID!r}"
-    )

@@ -1,10 +1,8 @@
-# ruff: noqa: D100, D101, D102, TC001, TC002, TC003
 from good_ass_pydantic_integrator import GAPIBaseModel
 from pydantic import AwareDatetime, ConfigDict, Field
 
-
 class Thumbnail(GAPIBaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra='forbid')
     url: str
     height: int | None = None
     width: int | None = None
@@ -12,50 +10,44 @@ class Thumbnail(GAPIBaseModel):
     id: str
     resolution: str | None = None
 
-
 class Thumbnail1(GAPIBaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra='forbid')
     url: str
     height: int
     width: int
 
-
 class Entry(GAPIBaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra='forbid')
     title: str
     thumbnails: list[Thumbnail1]
     duration: None
     timestamp: None
     ie_key: str
     id: str
-    field_type: str = Field(..., alias="_type")
+    field_type: str = Field(..., alias='_type')
     url: str
-    field__x_forwarded_for_ip: None = Field(..., alias="__x_forwarded_for_ip")
-
+    field__x_forwarded_for_ip: None = Field(..., alias='__x_forwarded_for_ip')
 
 class FieldVersion(GAPIBaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra='forbid')
     version: str
     current_git_head: None
     release_git_head: str
     repository: str
 
-
 class Params(GAPIBaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra='forbid')
     extract_flat: bool
     process: bool
 
-
 class YtDlapi(GAPIBaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra='forbid')
     timestamp: AwareDatetime
     url: str
     params: Params
 
-
 class ChannelPlaylistsModel(GAPIBaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra='forbid')
     id: str
     channel: str
     channel_id: str
@@ -72,7 +64,7 @@ class ChannelPlaylistsModel(GAPIBaseModel):
     playlist_count: int
     uploader: str
     channel_url: str
-    field_type: str = Field(..., alias="_type")
+    field_type: str = Field(..., alias='_type')
     entries: list[Entry]
     extractor_key: str
     extractor: str
@@ -82,5 +74,5 @@ class ChannelPlaylistsModel(GAPIBaseModel):
     webpage_url_domain: str
     release_year: None
     epoch: int
-    field_version: FieldVersion = Field(..., alias="_version")
-    yt_dlapi: YtDlapi
+    field_version: FieldVersion = Field(..., alias='_version')
+    yt_dlapi: YtDlapi | None = None

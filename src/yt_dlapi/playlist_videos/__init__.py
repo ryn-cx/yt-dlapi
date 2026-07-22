@@ -23,17 +23,14 @@ class PlaylistVideos(BaseEndpoint[PlaylistVideosModel]):
         """Return whether the playlist contains at least one video."""
         return bool(response.get("entries"))
 
-    def get_log_id(self, playlist_id: str) -> str:
-        """Build the log id for a download."""
-        return f"{self.__class__.__name__} {playlist_id=}"
-
     def download(self, playlist_id: str) -> dict[str, Any]:
         """Downloads the playlist videos file."""
+        log_id = self.get_log_id(self.download, locals())
         url = f"https://www.youtube.com/playlist?list={playlist_id}"
         # Need to get the episodes of the playlist so process must be True.
         return self._client.download(
             url,
-            log_id=self.get_log_id(playlist_id),
+            log_id=log_id,
             process=True,
             extract_flat=True,
         )
@@ -45,7 +42,8 @@ class PlaylistVideos(BaseEndpoint[PlaylistVideosModel]):
             NoContentError: If the playlist contains no videos. The raw response
                 is available on the exception's ``response`` attribute.
         """
+        log_id = self.get_log_id(self.download, locals())
         return self._parse_or_raise(
             self.download(playlist_id),
-            self.get_log_id(playlist_id),
+            log_id,
         )

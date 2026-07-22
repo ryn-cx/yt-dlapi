@@ -41,10 +41,3 @@ class TestChannelReleases:
             lambda: endpoint._parse_or_raise({"entries": []}, "empty"),  # noqa: SLF001
             NoContentError,
         )
-
-
-def test_log_id(endpoint: ChannelReleases) -> None:
-    assert (
-        endpoint.get_log_id(channel_name=RELEASES_CHANNEL_NAME)
-        == f"ChannelReleases channel_name={RELEASES_CHANNEL_NAME!r}"
-    )

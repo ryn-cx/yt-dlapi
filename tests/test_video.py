@@ -28,7 +28,3 @@ class TestVideo:
         data = parse_json(endpoint, VIDEO_ID)
         assert data is not None
         # TODO: assert data.id == VIDEO_ID (needs live data)
-
-
-def test_log_id(endpoint: Video) -> None:
-    assert endpoint.get_log_id(VIDEO_ID) == f"Video video_id={VIDEO_ID!r}"

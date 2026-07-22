@@ -18,19 +18,6 @@ class Channel(BaseEndpoint[ChannelModel]):
 
     _response_model = ChannelModel
 
-    def get_log_id(
-        self,
-        *,
-        channel_name: str | None = None,
-        channel_id: str | None = None,
-    ) -> str:
-        """Build the log id for a download."""
-        return self.append_non_default_args(
-            f"{self.__class__.__name__}",
-            channel_name=(channel_name, None),
-            channel_id=(channel_id, None),
-        )
-
     def download_by_name(self, channel_name: str) -> dict[str, Any]:
         """Downloads channel data for a given channel name.
 
@@ -40,10 +27,11 @@ class Channel(BaseEndpoint[ChannelModel]):
         Returns:
             The raw JSON response as a dict, suitable for passing to ``parse()``.
         """
+        log_id = self.get_log_id(self.download_by_name, locals())
         url = f"https://www.youtube.com/@{channel_name}"
         return self._client.download(
             url,
-            log_id=self.get_log_id(channel_name=channel_name),
+            log_id=log_id,
         )
 
     def download_by_id(self, channel_id: str) -> dict[str, Any]:
@@ -55,10 +43,11 @@ class Channel(BaseEndpoint[ChannelModel]):
         Returns:
             The raw JSON response as a dict, suitable for passing to ``parse()``.
         """
+        log_id = self.get_log_id(self.download_by_id, locals())
         url = f"https://www.youtube.com/channel/{channel_id}"
         return self._client.download(
             url,
-            log_id=self.get_log_id(channel_id=channel_id),
+            log_id=log_id,
         )
 
     def download_and_parse_by_name(self, channel_name: str) -> ChannelModel:

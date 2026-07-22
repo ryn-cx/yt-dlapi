@@ -26,19 +26,6 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         """Return whether the playlists tab lists at least one playlist."""
         return bool(response.get("entries"))
 
-    def get_log_id(
-        self,
-        *,
-        channel_name: str | None = None,
-        channel_id: str | None = None,
-    ) -> str:
-        """Build the log id for a download."""
-        return self.append_non_default_args(
-            f"{self.__class__.__name__}",
-            channel_name=(channel_name, None),
-            channel_id=(channel_id, None),
-        )
-
     def download_by_name(self, channel_name: str) -> dict[str, Any]:
         """Downloads channel playlists data for a given channel name.
 
@@ -48,10 +35,11 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         Returns:
             The raw JSON response as a dict, suitable for passing to ``parse()``.
         """
+        log_id = self.get_log_id(self.download_by_name, locals())
         url = f"https://www.youtube.com/{channel_name}/playlists"
         return self._client.download(
             url,
-            log_id=self.get_log_id(channel_name=channel_name),
+            log_id=log_id,
             process=True,
             extract_flat=True,
         )
@@ -65,10 +53,11 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
         Returns:
             The raw JSON response as a dict, suitable for passing to ``parse()``.
         """
+        log_id = self.get_log_id(self.download_by_id, locals())
         url = f"https://www.youtube.com/channel/{channel_id}/playlists"
         return self._client.download(
             url,
-            log_id=self.get_log_id(channel_id=channel_id),
+            log_id=log_id,
             process=True,
             extract_flat=True,
         )
@@ -88,9 +77,10 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
             NoContentError: If the playlists tab lists nothing. The raw response
                 is available on the exception's ``response`` attribute.
         """
+        log_id = self.get_log_id(self.download_by_name, locals())
         return self._parse_or_raise(
             self.download_by_name(channel_name),
-            self.get_log_id(channel_name=channel_name),
+            log_id,
         )
 
     def download_and_parse_by_id(self, channel_id: str) -> ChannelPlaylistsModel:
@@ -108,9 +98,10 @@ class ChannelPlaylists(BaseEndpoint[ChannelPlaylistsModel]):
             NoContentError: If the playlists tab lists nothing. The raw response
                 is available on the exception's ``response`` attribute.
         """
+        log_id = self.get_log_id(self.download_by_id, locals())
         return self._parse_or_raise(
             self.download_by_id(channel_id),
-            self.get_log_id(channel_id=channel_id),
+            log_id,
         )
 
     def download_albums_by_id(self, channel_id: str) -> str:

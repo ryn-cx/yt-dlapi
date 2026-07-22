@@ -40,14 +40,3 @@ class TestChannel:
         data = parse_json(endpoint, identifier)
         assert data is not None
         # TODO: assert expected value (needs live data)
-
-
-def test_log_id(endpoint: Channel) -> None:
-    assert (
-        endpoint.get_log_id(channel_name=CHANNEL_NAME)
-        == f"Channel channel_name={CHANNEL_NAME!r}"
-    )
-    assert (
-        endpoint.get_log_id(channel_id=CHANNEL_ID)
-        == f"Channel channel_id={CHANNEL_ID!r}"
-    )

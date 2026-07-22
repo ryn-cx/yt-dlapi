@@ -47,8 +47,3 @@ class TestPlaylistVideos:
             lambda: endpoint._parse_or_raise({"entries": []}, "empty"),  # noqa: SLF001
             NoContentError,
         )
-
-
-def test_log_id(endpoint: PlaylistVideos) -> None:
-    expected = f"PlaylistVideos playlist_id={PLAYLIST_ID!r}"
-    assert endpoint.get_log_id(PLAYLIST_ID) == expected

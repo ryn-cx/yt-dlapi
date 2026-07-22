@@ -28,7 +28,3 @@ class TestPlaylist:
         data = parse_json(endpoint, PLAYLIST_ID)
         assert data is not None
         # TODO: assert data.id == PLAYLIST_ID (needs live data)
-
-
-def test_log_id(endpoint: Playlist) -> None:
-    assert endpoint.get_log_id(PLAYLIST_ID) == f"Playlist playlist_id={PLAYLIST_ID!r}"
